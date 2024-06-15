@@ -1,8 +1,22 @@
-# Phaser Vite TypeScript Template
+# Phaser Editor 2D + Deno + Vite + Phaser + Spine 
 
-This is a Phaser 3 project template that uses Vite for bundling. It supports hot-reloading for quick development workflow, includes TypeScript support and scripts to generate production-ready builds.
+Getting started:
+- get Deno at https://deno.com/
 
-**[This Template is also available as a JavaScript version.](https://github.com/phaserjs/template-vite)**
+### Dev + Editor
+```
+deno task dev
+deno task editor
+```
+
+### Prod
+```
+deno task build
+```
+
+
+--- 
+Original readme: 
 
 ### Versions
 

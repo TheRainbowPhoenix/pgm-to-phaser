@@ -20,7 +20,19 @@
         "strictPropertyInitialization": false,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+        "sourceMap": true,
+		"baseUrl": "./src",
+		"paths": {
+		  "~/*": ["./*"],
+		  "@script-nodes": ["./src/script-nodes"],
+		  "@script-nodes-ts": ["./src/script-nodes-basic-ts"],
+		  "~scenes": ["./src/scenes"],
+		},
+        "outDir": "./dist",
+		"types": [
+			"phaser"
+		]
     },
     "include": [
         "src"
