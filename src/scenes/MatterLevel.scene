@@ -1,0 +1,113 @@
+{
+    "id": "8eb7d1e2-6991-4ede-8ef5-233ccd54ad06",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "MatterLevel",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 800
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "f9459a2d-8152-4bf3-9a5f-2ecd79494368",
+            "label": "background",
+            "texture": {
+                "key": "bg"
+            },
+            "scaleX": 1.5,
+            "scaleY": 1.1,
+            "originX": 0,
+            "originY": 0
+        },
+        {
+            "prefabId": "6187dbe3-4808-4bb8-a9b3-69991cf9d0f8",
+            "id": "936de2ce-8d22-40fa-b000-842beca46737",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "player",
+            "useGameObjectName": true,
+            "scope": "CLASS",
+            "x": 218,
+            "y": 345
+        },
+        {
+            "type": "Layer",
+            "id": "38dcd39a-ffe9-4fcf-bc6d-9b26b275322a",
+            "label": "platforms",
+            "scope": "CLASS",
+            "list": [
+                {
+                    "prefabId": "6e3a5f6b-47ad-49a0-9306-256667a63ab1",
+                    "id": "0447c748-9a96-452a-9100-c5f12050ce93",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "angle"
+                    ],
+                    "label": "platform_4",
+                    "x": -5,
+                    "y": 152,
+                    "angle": 86
+                },
+                {
+                    "prefabId": "6e3a5f6b-47ad-49a0-9306-256667a63ab1",
+                    "id": "c89064db-ff6f-453d-9c72-3cab26221f4d",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "platform_3",
+                    "x": 1200,
+                    "y": 508
+                },
+                {
+                    "prefabId": "6e3a5f6b-47ad-49a0-9306-256667a63ab1",
+                    "id": "cabe37b4-0bad-426f-8f54-b4e461bd97d4",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "platform_2",
+                    "x": 797,
+                    "y": 534
+                },
+                {
+                    "prefabId": "6e3a5f6b-47ad-49a0-9306-256667a63ab1",
+                    "id": "026fb914-f4ea-4721-b1a1-7a44b972ef14",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "platform_1",
+                    "x": 395,
+                    "y": 565
+                },
+                {
+                    "prefabId": "6e3a5f6b-47ad-49a0-9306-256667a63ab1",
+                    "id": "ff04aa58-87e2-413a-8f9c-b3e3b8a1a33f",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "platform",
+                    "x": -5,
+                    "y": 553
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

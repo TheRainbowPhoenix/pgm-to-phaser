@@ -1,0 +1,77 @@
+{
+    "id": "6187dbe3-4808-4bb8-a9b3-69991cf9d0f8",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "superClassName": "BasePlayer",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 800
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "67b5ebb4-a343-427d-a2ae-0df42ecd3505",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "2dc5c546-e1e6-48d6-a0bb-7cc559ad403d",
+                    "label": "hasumi_screen",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "hasumi_screen"
+                    },
+                    "originY": 0.84
+                }
+            ]
+        }
+    ],
+    "plainObjects": [
+        {
+            "id": "cd7ae36f-e433-4878-bdb9-ce6b29712a0f",
+            "type": "Keyboard.Key",
+            "label": "leftKey",
+            "keyCode": "LEFT"
+        },
+        {
+            "id": "1f833007-b138-44bb-afbc-e37e291ca2f8",
+            "type": "Keyboard.Key",
+            "label": "rightKey",
+            "keyCode": "RIGHT"
+        },
+        {
+            "id": "8596035f-c77b-4238-974d-84c3705cba02",
+            "type": "Keyboard.Key",
+            "label": "upKey",
+            "keyCode": "UP"
+        },
+        {
+            "id": "59869371-4e1a-4324-aa82-990932931b83",
+            "type": "Keyboard.Key",
+            "label": "spaceKey"
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "score",
+            "label": "Score",
+            "tooltip": "score",
+            "defValue": 0,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
+}

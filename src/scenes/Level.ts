@@ -19,7 +19,7 @@ export default class Level extends Phaser.Scene {
 	editorCreate(): void {
 
 		// dino
-		const dino = this.add.image(640, 302, "dino");
+		const dino = this.add.image(643, 281, "dino");
 
 		// onPointerDownScript
 		const onPointerDownScript = new OnPointerDownScript(dino);
@@ -28,8 +28,8 @@ export default class Level extends Phaser.Scene {
 		new PushActionScript(onPointerDownScript);
 
 		// text_1
-		const text_1 = this.add.text(640, 462, "", {});
-		text_1.setOrigin(0.5, 0);
+		const text_1 = this.add.text(640, 547, "", {});
+		text_1.setOrigin(0.5, 0.5);
 		text_1.text = "Phaser 3 + Phaser Editor 2D + TypeScript";
 		text_1.setStyle({ "fontFamily": "arial", "fontSize": "3em" });
 

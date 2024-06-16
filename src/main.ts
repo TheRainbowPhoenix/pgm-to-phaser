@@ -9,21 +9,25 @@ import { Types } from "phaser";
 
 import 'phaser/plugins/spine4.1/dist/SpinePlugin';
 import { MatterGravityFixPlugin } from './plugins/MatterGravityFixPlugin';
+import MatterLevel from './scenes/MatterLevel';
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
 const config: Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 1024,
+    width: 1280,
     height: 800,
     parent: 'game-container',
-    backgroundColor: '#000000',
+    backgroundColor: '#0A0A0A',
     // pixelArt: true,
     physics: {
         default: 'matter',
         matter: {
           debug: true,
           gravity: { y: 5, x: 0 },
+          // @ts-ignore
+          debugShowBody: true,
+          debugBodyColor: 0x0000ff,
         },
     },
     input: {
@@ -61,7 +65,8 @@ const config: Types.Core.GameConfig = {
 const game = new Phaser.Game(config);
 
 game.scene.add("Preload", Preload);
-game.scene.add("Level", Level);
+// game.scene.add("Level", Level);
+game.scene.add("MatterLevel", MatterLevel);
 game.scene.add("Boot", Boot, true);
 
 export default game;

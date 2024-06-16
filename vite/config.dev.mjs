@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-    base: './',
+    base: "./",
     build: {
         rollupOptions: {
             output: {
@@ -11,6 +11,13 @@ export default defineConfig({
             }
         },
     },
+    publicDir: true,
+	resolve: {
+		alias: {
+			'~': true,
+			'$service-worker': true
+		}
+	},
     server: {
         port: 8080
     }

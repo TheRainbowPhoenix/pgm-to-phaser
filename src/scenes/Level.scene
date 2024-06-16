@@ -8,7 +8,7 @@
         "sceneKey": "Level",
         "compilerOutputLanguage": "TYPE_SCRIPT",
         "borderWidth": 1280,
-        "borderHeight": 720
+        "borderHeight": 800
     },
     "displayList": [
         {
@@ -21,8 +21,8 @@
             "texture": {
                 "key": "dino"
             },
-            "x": 640,
-            "y": 302,
+            "x": 643,
+            "y": 281,
             "list": [
                 {
                     "prefabId": "a06ed60b-79f1-4444-bf35-89046f71f954",
@@ -43,8 +43,9 @@
             "id": "9a5ebf25-d774-4035-b779-608d99945bf3",
             "label": "text_1",
             "x": 640,
-            "y": 462,
+            "y": 547,
             "originX": 0.5,
+            "originY": 0.5,
             "text": "Phaser 3 + Phaser Editor 2D + TypeScript",
             "fontFamily": "arial",
             "fontSize": "3em"

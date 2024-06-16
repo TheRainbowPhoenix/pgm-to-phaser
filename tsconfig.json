@@ -24,15 +24,12 @@
         "sourceMap": true,
 		"baseUrl": "./src",
 		"paths": {
-		  "~/*": ["./*"],
-		  "@script-nodes": ["./src/script-nodes"],
-		  "@script-nodes-ts": ["./src/script-nodes-basic-ts"],
-		  "~scenes": ["./src/scenes"],
 		},
         "outDir": "./dist",
 		"types": [
 			"phaser"
-		]
+		],
+        "typeRoots": ["@types", "node_modules/@types", "node_module/phaser/types"]
     },
     "include": [
         "src"

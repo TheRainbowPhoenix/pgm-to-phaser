@@ -2,9 +2,29 @@
     "section1": {
         "files": [
             {
+                "url": "assets/bg.png",
+                "type": "image",
+                "key": "bg"
+            },
+            {
                 "url": "assets/dino.png",
                 "type": "image",
                 "key": "dino"
+            },
+            {
+                "url": "assets/hasumi_screen.png",
+                "type": "image",
+                "key": "hasumi_screen"
+            },
+            {
+                "url": "assets/logo.png",
+                "type": "image",
+                "key": "logo"
+            },
+            {
+                "url": "assets/platform.png",
+                "type": "image",
+                "key": "platform"
             }
         ]
     },
@@ -12,6 +32,7 @@
         "app": "Phaser Editor 2D - Asset Pack Editor",
         "contentType": "phasereditor2d.pack.core.AssetContentType",
         "url": "https://phasereditor2d.com",
-        "version": 2
+        "version": 2,
+        "showAllFilesInBlocks": false
     }
 }
