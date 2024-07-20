@@ -2,10 +2,7 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "npm:phasereditor2d-launcher": "npm:phasereditor2d-launcher@3.67.0",
-      "npm:phasereditor2d-launcher@3.67.0": "npm:phasereditor2d-launcher@3.67.0",
-      "npm:vite@5.3.1": "npm:vite@5.3.1",
-      "npm:vite@^5.2.11": "npm:vite@5.3.1"
+      "npm:vite@^5.2.11": "npm:vite@5.3.4"
     },
     "npm": {
       "@esbuild/aix-ppc64@0.21.5": {
@@ -168,10 +165,6 @@
         "integrity": "sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==",
         "dependencies": {}
       },
-      "adm-zip@0.5.14": {
-        "integrity": "sha512-DnyqqifT4Jrcvb8USYjp6FHtBpEIz1mnXu6pTRHZ0RL69LbQYiO+0lDFg5+OKA7U29oWSs3a/i8fhn8ZcceIWg==",
-        "dependencies": {}
-      },
       "esbuild@0.21.5": {
         "integrity": "sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==",
         "dependencies": {
@@ -208,18 +201,12 @@
         "integrity": "sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==",
         "dependencies": {}
       },
-      "phasereditor2d-launcher@3.67.0": {
-        "integrity": "sha512-3urX8KX19kIgyP8VpbTeeyfU8TISsBAopYY6BMLbEd7Y3aES3vfvUdwEo4CHwIvfR5iD+9ZNZ4tQdxy/300UYA==",
-        "dependencies": {
-          "adm-zip": "adm-zip@0.5.14"
-        }
-      },
       "picocolors@1.0.1": {
         "integrity": "sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==",
         "dependencies": {}
       },
-      "postcss@8.4.38": {
-        "integrity": "sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==",
+      "postcss@8.4.39": {
+        "integrity": "sha512-0vzE+lAiG7hZl1/9I8yzKLx3aR9Xbof3fBHKunvMfOCYAtMhrsnccJY2iTURb9EZd5+pLuiNV9/c/GZJOHsgIw==",
         "dependencies": {
           "nanoid": "nanoid@3.3.7",
           "picocolors": "picocolors@1.0.1",
@@ -253,12 +240,12 @@
         "integrity": "sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==",
         "dependencies": {}
       },
-      "vite@5.3.1": {
-        "integrity": "sha512-XBmSKRLXLxiaPYamLv3/hnP/KXDai1NDexN0FpkTaZXTfycHvkRHoenpgl/fvuK/kPbB6xAgoyiryAhQNxYmAQ==",
+      "vite@5.3.4": {
+        "integrity": "sha512-Cw+7zL3ZG9/NZBB8C+8QbQZmR54GwqIz+WMI4b3JgdYJvX+ny9AjJXqkGQlDXSXRP9rP0B4tbciRMOVEKulVOA==",
         "dependencies": {
           "esbuild": "esbuild@0.21.5",
           "fsevents": "fsevents@2.3.3",
-          "postcss": "postcss@8.4.38",
+          "postcss": "postcss@8.4.39",
           "rollup": "rollup@4.18.0"
         }
       }

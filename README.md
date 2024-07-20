@@ -1,9 +1,19 @@
 # Phaser Editor 2D + Deno + Vite + Phaser + Spine 
 
 Getting started:
-- get Deno at https://deno.com/
+- get Deno at https://deno.com/ or pnpm
+
+`deno cache --reload --lock=deno.lock src\main.ts`
 
 ### Dev + Editor
+```
+pnpm install
+pnpm run dev
+pnpm run editor
+```
+
+or 
+
 ```
 deno task dev
 deno task editor
@@ -12,6 +22,9 @@ deno task editor
 ### Prod
 ```
 deno task build
+```
+```
+pnpm run build
 ```
 
 

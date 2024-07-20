@@ -1,0 +1,18 @@
+find "sceneList": [ ... ] (should be right child of the project root 
+
+same for "tilesetList"
+
+
+"wallSetting" are ==> then v like 0 15 15 0 15 0 0 15 is :
+0  15  15  0
+15 0   0   15
+
+15 = <^v> = no pass any direction
+11 = <^v 
+3 = <^
+2 = <
+bit = XXXX = ^<>v 
+
+
+"tileData": { "ID" : DATA ...
+ID= index (from 0) of the tile, ==> then v 

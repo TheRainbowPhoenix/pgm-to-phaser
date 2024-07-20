@@ -10,6 +10,8 @@ import { Types } from "phaser";
 import 'phaser/plugins/spine4.1/dist/SpinePlugin';
 import { MatterGravityFixPlugin } from './plugins/MatterGravityFixPlugin';
 import MatterLevel from './scenes/MatterLevel';
+import TestTilemapScene from './scenes/TestTilemapScene';
+import TitleScreen from './scenes/TitleScreen';
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
@@ -19,9 +21,20 @@ const config: Types.Core.GameConfig = {
     height: 800,
     parent: 'game-container',
     backgroundColor: '#0A0A0A',
-    // pixelArt: true,
+		scale: {
+			mode: Phaser.Scale.FIT,
+			autoCenter: Phaser.Scale.CENTER_BOTH
+		},
+    pixelArt: true,
     physics: {
-        default: 'matter',
+        default: 'arcade',
+        arcade: {
+          debug: false,
+          gravity: {
+            x: 0,
+            y: 500
+          }
+        },
         matter: {
           debug: true,
           gravity: { y: 5, x: 0 },
@@ -30,8 +43,12 @@ const config: Types.Core.GameConfig = {
           debugBodyColor: 0x0000ff,
         },
     },
+		render: {
+			pixelArt: true,
+		},
     input: {
       gamepad: true,
+			activePointers: 3
     },
     plugins: {
       scene: [
@@ -49,10 +66,6 @@ const config: Types.Core.GameConfig = {
         },
       ],
     },
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH
-    },
     scene: [
         // Boot,
         // Preload,
@@ -67,6 +80,8 @@ const game = new Phaser.Game(config);
 game.scene.add("Preload", Preload);
 // game.scene.add("Level", Level);
 game.scene.add("MatterLevel", MatterLevel);
+game.scene.add("TitleScreen", TitleScreen);
+game.scene.add("TestTilemapScene", TestTilemapScene);
 game.scene.add("Boot", Boot, true);
 
 export default game;

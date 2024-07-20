@@ -1,0 +1,192 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "Bridge1.tmx": {
+            "scale": 0.5976648351648352,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 648.3566996092853,
+                "y": 728.6692714318548
+            }
+        },
+        "Bridge2(end).tmx": {
+            "scale": 0.5976648351648352,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 648.3566996092853,
+                "y": 728.6692714318548
+            }
+        },
+        "Bridge3(amanda_OVER).tmx": {
+            "scale": 0.5976648351648352,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 648.3566996092853,
+                "y": 728.6692714318548
+            }
+        },
+        "LAB.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 184.5,
+                "y": 1155.5
+            }
+        },
+        "Lv1_A.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv1_B.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv1_C.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv1_D.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv1_E.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv1_F.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv2_G.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv2_H.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv2_I.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv2_J.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv2_KP.tmx": {
+            "scale": 0.34422468354430374,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1050.1861641002072,
+                "y": 1265.1620317168472
+            }
+        },
+        "Lv2_outer.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1356.060606060606,
+                "y": 1165.1515151515152
+            }
+        },
+        "bridge0.tmx": {
+            "scale": 0.6043055555555555,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 642.8866927143185,
+                "y": 720.6619168007354
+            }
+        },
+        "map.json": {
+            "scale": 0.9571582346609258,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 464.3955240665767,
+                "y": 200.07141250562302
+            }
+        },
+        "map.json#tileset": {
+            "scaleInDock": 1
+        },
+        "output.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1490,
+                "y": 1402
+            }
+        },
+        "tilesets/block_moves.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/window01.tsx": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Phoebe/gamedev/games/tentacles-space/public/assets/maps/tilesets",
+    "map.height": 90,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 80,
+    "openFiles": [
+    ],
+    "project": "test.tiled-project",
+    "recentFiles": [
+        "bridge0.tmx",
+        "output.tmx",
+        "tilesets/block_moves.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
