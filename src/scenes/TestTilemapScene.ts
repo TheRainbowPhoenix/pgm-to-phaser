@@ -150,6 +150,7 @@ export default class TestTilemapScene extends Phaser.Scene {
   protected inInteraction: boolean = false;
   private activeTrigger: any;
   private mapShown: boolean = false;
+  private debugGraphics: any;
   // Write your code here
 
   create() {
@@ -325,18 +326,25 @@ export default class TestTilemapScene extends Phaser.Scene {
     });
   }
 
+  debugCollider() {
+    if (this.debugGraphics) {
+      this.debugGraphics.clear();
+    }
+    this.debugGraphics = this.add.graphics().setAlpha(0.75);
+    this.collideLayer.renderDebug(this.debugGraphics, {
+      tileColor: null, // Color of non-colliding tiles
+      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+    });
+  }
+
   initColliders() {
     this.collideLayer.setCollisionBetween(1, 1600, true, false);
     this.physics.add.collider(this.collideLayer, this.player);
 
     this.bgLayer.setCollisionByProperty({ interact: 2 });
 
-    const debugGraphics = this.add.graphics().setAlpha(0.75);
-    this.collideLayer.renderDebug(debugGraphics, {
-      tileColor: null, // Color of non-colliding tiles
-      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-    });
+    this.debugCollider();
 
     const spawnPoint = this.map.findObject(
       "Interacts",
@@ -361,11 +369,17 @@ export default class TestTilemapScene extends Phaser.Scene {
           trigger.width !== undefined &&
           trigger.height !== undefined
         ) {
+			console.log(trigger);
           const trg_x = trigger.x + trigger.width / 2;
           const trg_y = trigger.y + trigger.height / 2;
           const boxTrigger = this.boxTriggerGroup.create(trg_x, trg_y);
           boxTrigger.width = trigger.width;
           boxTrigger.height = trigger.height;
+		  boxTrigger.body.width = trigger.width;
+		  boxTrigger.body.height = trigger.height;
+		  boxTrigger.body.x = trigger.x;
+		  boxTrigger.body.y = trigger.y;
+
           boxTrigger.setDisplaySize(trigger.width, trigger.height);
           boxTrigger.visible = false;
           boxTrigger.trigger_name = trigger.name;
@@ -446,6 +460,9 @@ export default class TestTilemapScene extends Phaser.Scene {
         case "map_view":
           this.showLevelMap();
           break;
+        case "door_open":
+          this.openDoor();
+          break;
         default:
           console.log("showDialog", trigger_name);
       }
@@ -463,6 +480,9 @@ export default class TestTilemapScene extends Phaser.Scene {
         case "map_view":
           this.hideLevelMap();
           break;
+        case "door_open":
+          this.closeDoor();
+          break;
         default:
           console.log("hideDialog", trigger_name);
       }
@@ -473,6 +493,8 @@ export default class TestTilemapScene extends Phaser.Scene {
 
   showLevelMap() {
     if (!this.mapShown) {
+      // TODO: swap the content according to the level
+
       this.tweens.add({
         targets: this.levelMap,
         x: 660, // Final position
@@ -494,6 +516,79 @@ export default class TestTilemapScene extends Phaser.Scene {
       });
       this.mapShown = false;
     }
+  }
+
+  closeDoor() {
+    for (let y = 30; y <= 31; y++) {
+      for (let x = 55; x <= 57; x++) {
+        this.collideLayer.putTileAt(1598, x, y);
+      }
+    }
+
+    const newDoor = [
+      4497, 4498, 4499, 4500, 4501, 4502, 4503, 4504, 4537, 4538, 4539, 4540,
+      4541, 4542, 4543, 4544, 4577, 4578, 4579, 4580, 4581, 4582, 4583, 4584,
+      4617, 4618, 4619, 4620, 4621, 4622, 4623, 4624, 4657, 4658, 4659, 4660,
+      4661, 4662, 4663, 4664, 4697, 4698, 4699, 4700, 4701, 4702, 4703, 4704,
+      3287, 3288, 3289, 3290, 3291, 3292, 3293, 3294,
+    ];
+
+    // from 52,27 to 59,32
+    const startX = 52;
+    const startY = 27;
+    const endX = 59;
+    const endY = 32;
+
+    // Track the index of the newDoor array
+    let tileIndex = 0;
+
+    // Place new tiles
+    for (let y = startY; y <= endY; y++) {
+      for (let x = startX; x <= endX; x++) {
+        if (tileIndex < newDoor.length) {
+          this.bgLayer.putTileAt(newDoor[tileIndex], x, y);
+          tileIndex++;
+        }
+      }
+    }
+
+    this.debugCollider();
+  }
+
+  openDoor() {
+    for (let y = 30; y <= 31; y++) {
+      for (let x = 55; x <= 57; x++) {
+        this.collideLayer.removeTileAt(x, y);
+      }
+    }
+
+    const newDoor = [
+      4507, 4508, 4509, 4510, 4511, 4512, 4513, 4514, 4547, 4548, 4549, 4550,
+      4551, 4552, 4553, 4554, 4587, 4588, 4589, 4590, 4591, 4592, 4593, 4594,
+      4627, 4628, 4629, 4630, 4631, 4632, 4633, 4634, 4667, 4668, 4669, 4670,
+      4671, 4672, 4673, 4674, 4707, 4708, 4709, 4710, 4711, 4712, 4713, 4714,
+    ];
+
+    // from 52,27 to 59,32
+    const startX = 52;
+    const startY = 27;
+    const endX = 59;
+    const endY = 32;
+
+    // Track the index of the newDoor array
+    let tileIndex = 0;
+
+    // Place new tiles
+    for (let y = startY; y <= endY; y++) {
+      for (let x = startX; x <= endX; x++) {
+        if (tileIndex < newDoor.length) {
+          this.bgLayer.putTileAt(newDoor[tileIndex], x, y);
+          tileIndex++;
+        }
+      }
+    }
+
+    this.debugCollider();
   }
 
   handleAnimateTiles(scene: Phaser.Scene, delta: number) {
