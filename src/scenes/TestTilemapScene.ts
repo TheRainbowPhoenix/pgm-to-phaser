@@ -8,141 +8,110 @@ import Velonia from "../prefabs/Velonia";
 /* END-USER-IMPORTS */
 
 export default class TestTilemapScene extends Phaser.Scene {
-  constructor() {
-    super("TestTilemapScene");
 
-    /* START-USER-CTR-CODE */
+	constructor() {
+		super("TestTilemapScene");
+
+		/* START-USER-CTR-CODE */
     // Write your code here.
     /* END-USER-CTR-CODE */
-  }
+	}
 
-  editorCreate(): void {
-    // map
-    const map = this.add.tilemap("bridge0");
-    map.addTilesetImage("stage01", "stage01");
-    map.addTilesetImage("stage02", "stage02");
-    map.addTilesetImage("stage03", "stage03");
-    map.addTilesetImage("stage04", "stage04");
-    map.addTilesetImage("window01", "window01");
+	editorCreate(): void {
 
-    // spaceKey
-    const spaceKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SPACE
-    );
+		// map
+		const map = this.add.tilemap("bridge0");
+		map.addTilesetImage("stage01", "stage01");
+		map.addTilesetImage("stage02", "stage02");
+		map.addTilesetImage("stage03", "stage03");
+		map.addTilesetImage("stage04", "stage04");
+		map.addTilesetImage("window01", "window01");
 
-    // leftKey
-    const leftKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.LEFT
-    );
+		// spaceKey
+		const spaceKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-    // rightKey
-    const rightKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.RIGHT
-    );
+		// leftKey
+		const leftKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
 
-    // upKey
-    const upKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.UP
-    );
+		// rightKey
+		const rightKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
-    // downKey
-    const downKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.DOWN
-    );
+		// upKey
+		const upKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 
-    // bgLayer
-    const bgLayer = map.createLayer(
-      "layer4",
-      ["stage03", "stage04", "stage01"],
-      0,
-      0
-    )!;
+		// downKey
+		const downKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
-    // collideLayer
-    const collideLayer = map.createLayer("layer3", ["stage01"], 0, 0)!;
+		// bgLayer
+		const bgLayer = map.createLayer("layer4", ["stage03","stage04","stage01"], 0, 0)!;
 
-    // player
-    const player = new Velonia(this, 352, 592);
-    this.add.existing(player);
+		// collideLayer
+		const collideLayer = map.createLayer("layer3", ["stage01"], 0, 0)!;
 
-    // uiLayer
-    const uiLayer = this.add.layer();
+		// player
+		const player = new Velonia(this, 352, 592);
+		this.add.existing(player);
 
-    // levelMap
-    const levelMap = this.add.sprite(
-      1120,
-      176,
-      "MAP_Lv1_bridge_1",
-      "MAP_1b_request_crew.png"
-    );
-    levelMap.setOrigin(1, 0.5);
-    uiLayer.add(levelMap);
+		// uiLayer
+		const uiLayer = this.add.layer();
 
-    // lists
-    const items: Array<any> = [];
-    const enemies: Array<any> = [];
+		// levelMap
+		const levelMap = this.add.sprite(1120, 176, "MAP_Lv1_bridge_1", "MAP_1b_request_crew.png");
+		levelMap.setOrigin(1, 0.5);
+		uiLayer.add(levelMap);
 
-    // colliderPlayerVsLayer
-    const colliderPlayerVsLayer = this.physics.add.collider(
-      player,
-      collideLayer
-    );
+		// tiledUI
+		const tiledUI = map.createLayer("layer1", ["window01"], 0, 0)!;
+		uiLayer.add(tiledUI);
 
-    // colliderEnemiesVsLayer
-    const colliderEnemiesVsLayer = this.physics.add.collider(
-      enemies,
-      collideLayer
-    );
+		// lists
+		const items: Array<any> = [];
+		const enemies: Array<any> = [];
 
-    // overlapPlayerVsItems
-    const overlapPlayerVsItems = this.physics.add.overlap(
-      player,
-      items,
-      this.pickItem,
-      undefined,
-      this
-    );
+		// colliderPlayerVsLayer
+		const colliderPlayerVsLayer = this.physics.add.collider(player, collideLayer);
 
-    // overlapPlayerVsEnemies
-    const overlapPlayerVsEnemies = this.physics.add.overlap(
-      player,
-      enemies,
-      undefined,
-      this.checkAgainstEnemies
-    );
+		// colliderEnemiesVsLayer
+		const colliderEnemiesVsLayer = this.physics.add.collider(enemies, collideLayer);
 
-    this.bgLayer = bgLayer;
-    this.collideLayer = collideLayer;
-    this.player = player;
-    this.levelMap = levelMap;
-    this.uiLayer = uiLayer;
-    this.map = map;
-    this.spaceKey = spaceKey;
-    this.leftKey = leftKey;
-    this.rightKey = rightKey;
-    this.upKey = upKey;
-    this.downKey = downKey;
-    this.items = items;
-    this.enemies = enemies;
+		// overlapPlayerVsItems
+		const overlapPlayerVsItems = this.physics.add.overlap(player, items, this.pickItem, undefined, this);
 
-    this.events.emit("scene-awake");
-  }
+		// overlapPlayerVsEnemies
+		const overlapPlayerVsEnemies = this.physics.add.overlap(player, enemies, undefined, this.checkAgainstEnemies);
 
-  private bgLayer!: Phaser.Tilemaps.TilemapLayer;
-  private collideLayer!: Phaser.Tilemaps.TilemapLayer;
-  private player!: Velonia;
-  private levelMap!: Phaser.GameObjects.Sprite;
-  private uiLayer!: Phaser.GameObjects.Layer;
-  private map!: Phaser.Tilemaps.Tilemap;
-  private spaceKey!: Phaser.Input.Keyboard.Key;
-  private leftKey!: Phaser.Input.Keyboard.Key;
-  private rightKey!: Phaser.Input.Keyboard.Key;
-  private upKey!: Phaser.Input.Keyboard.Key;
-  private downKey!: Phaser.Input.Keyboard.Key;
-  private items!: Array<any>;
-  private enemies!: Array<any>;
+		this.bgLayer = bgLayer;
+		this.collideLayer = collideLayer;
+		this.player = player;
+		this.levelMap = levelMap;
+		this.uiLayer = uiLayer;
+		this.map = map;
+		this.spaceKey = spaceKey;
+		this.leftKey = leftKey;
+		this.rightKey = rightKey;
+		this.upKey = upKey;
+		this.downKey = downKey;
+		this.items = items;
+		this.enemies = enemies;
 
-  /* START-USER-CODE */
+		this.events.emit("scene-awake");
+	}
+
+	private bgLayer!: Phaser.Tilemaps.TilemapLayer;
+	private collideLayer!: Phaser.Tilemaps.TilemapLayer;
+	private player!: Velonia;
+	private levelMap!: Phaser.GameObjects.Sprite;
+	private uiLayer!: Phaser.GameObjects.Layer;
+	private map!: Phaser.Tilemaps.Tilemap;
+	private spaceKey!: Phaser.Input.Keyboard.Key;
+	private leftKey!: Phaser.Input.Keyboard.Key;
+	private rightKey!: Phaser.Input.Keyboard.Key;
+	private upKey!: Phaser.Input.Keyboard.Key;
+	private downKey!: Phaser.Input.Keyboard.Key;
+	private items!: Array<any>;
+	private enemies!: Array<any>;
+
+	/* START-USER-CODE */
 
   protected lastDir: number = 0;
   protected animatedTiles: any[] = [];
