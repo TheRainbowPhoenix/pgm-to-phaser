@@ -2,9 +2,20 @@
     "section1": {
         "files": [
             {
+                "atlasURL": "assets/atlas/atlas.json",
+                "textureURL": "assets/atlas/atlas.png",
+                "type": "atlas",
+                "key": "atlas"
+            },
+            {
                 "url": "assets/bg.png",
                 "type": "image",
                 "key": "bg"
+            },
+            {
+                "url": "assets/maps/bridge0.json",
+                "type": "tilemapTiledJSON",
+                "key": "bridge0"
             },
             {
                 "url": "assets/dino.png",
@@ -22,9 +33,131 @@
                 "key": "logo"
             },
             {
+                "url": "assets/ui/map/MAP_Lv1.png",
+                "type": "image",
+                "key": "MAP_Lv1"
+            },
+            {
+                "url": "assets/ui/map/MAP_Lv1_bridge.png",
+                "type": "image",
+                "key": "MAP_Lv1_bridge"
+            },
+            {
+                "atlasURL": "assets/ui/map/MAP_Lv1_bridge.json",
+                "textureURL": "assets/ui/map/MAP_Lv1_bridge.png",
+                "type": "atlas",
+                "key": "MAP_Lv1_bridge_1"
+            },
+            {
+                "url": "assets/ui/map/MAP_Lv2.png",
+                "type": "image",
+                "key": "MAP_Lv2"
+            },
+            {
+                "url": "assets/ui/map/MAP_Lv2_bridge.png",
+                "type": "image",
+                "key": "MAP_Lv2_bridge"
+            },
+            {
+                "url": "assets/ui/menu/menu01.png",
+                "type": "image",
+                "key": "menu01"
+            },
+            {
+                "url": "assets/ui/menu/menu02.png",
+                "type": "image",
+                "key": "menu02"
+            },
+            {
+                "url": "assets/ui/menu/menu03.png",
+                "type": "image",
+                "key": "menu03"
+            },
+            {
                 "url": "assets/platform.png",
                 "type": "image",
                 "key": "platform"
+            },
+            {
+                "atlasURL": "assets/atlas/player.json",
+                "textureURL": "assets/atlas/player.png",
+                "type": "atlas",
+                "key": "player"
+            },
+            {
+                "url": "assets/maps/tilesets/spase.png",
+                "type": "image",
+                "key": "spase"
+            },
+            {
+                "url": "assets/animations/sprites.json",
+                "type": "animation",
+                "key": "sprites"
+            },
+            {
+                "url": "assets/maps/tilesets/stage01.png",
+                "type": "image",
+                "key": "stage01"
+            },
+            {
+                "url": "assets/maps/tilesets/stage02.png",
+                "type": "image",
+                "key": "stage02"
+            },
+            {
+                "url": "assets/maps/tilesets/stage03.png",
+                "type": "image",
+                "key": "stage03"
+            },
+            {
+                "url": "assets/maps/tilesets/stage04.png",
+                "type": "image",
+                "key": "stage04"
+            },
+            {
+                "url": "assets/maps/tilesets/stage05.png",
+                "type": "image",
+                "key": "stage05"
+            },
+            {
+                "url": "assets/maps/tilesets/stage06.png",
+                "type": "image",
+                "key": "stage06"
+            },
+            {
+                "url": "assets/maps/tilesets/stage08.png",
+                "type": "image",
+                "key": "stage08"
+            },
+            {
+                "url": "assets/maps/tilesets/stage09.png",
+                "type": "image",
+                "key": "stage09"
+            },
+            {
+                "url": "assets/maps/tilesets/stage10.png",
+                "type": "image",
+                "key": "stage10"
+            },
+            {
+                "url": "assets/atlas/tentacles.png",
+                "type": "image",
+                "key": "tentacles"
+            },
+            {
+                "url": "assets/ui/veronica/veronica_t1.png",
+                "type": "image",
+                "key": "veronica_t1"
+            },
+            {
+                "url": "assets/ui/veronica/veronica01.png",
+                "type": "image",
+                "key": "veronica01"
+            },
+            {
+                "url": "assets/maps/tilesets/window01.png",
+                "type": "image",
+                "key": "window01"
             }
         ]
     },

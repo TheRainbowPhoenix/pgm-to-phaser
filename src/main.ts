@@ -17,10 +17,11 @@ import TitleScreen from './scenes/TitleScreen';
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
 const config: Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 1280,
-    height: 800,
+    width: 640,
+    height: 360,
     parent: 'game-container',
     backgroundColor: '#0A0A0A',
+    roundPixels: false,
 		scale: {
 			mode: Phaser.Scale.FIT,
 			autoCenter: Phaser.Scale.CENTER_BOTH
@@ -29,19 +30,13 @@ const config: Types.Core.GameConfig = {
     physics: {
         default: 'arcade',
         arcade: {
-          debug: false,
+          debug: true,
+          fixedStep: false,
           gravity: {
             x: 0,
-            y: 500
+            y: 0
           }
-        },
-        matter: {
-          debug: true,
-          gravity: { y: 5, x: 0 },
-          // @ts-ignore
-          debugShowBody: true,
-          debugBodyColor: 0x0000ff,
-        },
+        }
     },
 		render: {
 			pixelArt: true,
@@ -57,13 +52,7 @@ const config: Types.Core.GameConfig = {
           plugin: window['SpinePlugin'],
           mapping: 'spine',
           sceneKey: 'spine',
-        },
-        {
-          key: 'MatterGravityFixPlugin',
-          plugin: MatterGravityFixPlugin,
-          mapping: 'matterGravityFix',
-          start: true,
-        },
+        }
       ],
     },
     scene: [
