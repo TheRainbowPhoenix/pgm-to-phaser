@@ -43,6 +43,9 @@ export default class TestTilemapScene extends Phaser.Scene {
 		// downKey
 		const downKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
+		// interactKey
+		const interactKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+
 		// bgLayer
 		const bgLayer = map.createLayer("layer4", ["stage03","stage04","stage01"], 0, 0)!;
 
@@ -89,6 +92,7 @@ export default class TestTilemapScene extends Phaser.Scene {
 		this.collideLayer = collideLayer;
 		this.player = player;
 		this.levelMap = levelMap;
+		this.gameUI = gameUI;
 		this.uiLayer = uiLayer;
 		this.map = map;
 		this.spaceKey = spaceKey;
@@ -96,6 +100,7 @@ export default class TestTilemapScene extends Phaser.Scene {
 		this.rightKey = rightKey;
 		this.upKey = upKey;
 		this.downKey = downKey;
+		this.interactKey = interactKey;
 		this.items = items;
 		this.enemies = enemies;
 
@@ -106,6 +111,7 @@ export default class TestTilemapScene extends Phaser.Scene {
 	private collideLayer!: Phaser.Tilemaps.TilemapLayer;
 	private player!: Velonia;
 	private levelMap!: Phaser.GameObjects.Sprite;
+	public gameUI!: GameUI;
 	private uiLayer!: Phaser.GameObjects.Layer;
 	private map!: Phaser.Tilemaps.Tilemap;
 	private spaceKey!: Phaser.Input.Keyboard.Key;
@@ -113,6 +119,7 @@ export default class TestTilemapScene extends Phaser.Scene {
 	private rightKey!: Phaser.Input.Keyboard.Key;
 	private upKey!: Phaser.Input.Keyboard.Key;
 	private downKey!: Phaser.Input.Keyboard.Key;
+	private interactKey!: Phaser.Input.Keyboard.Key;
 	private items!: Array<any>;
 	private enemies!: Array<any>;
 
@@ -303,7 +310,7 @@ export default class TestTilemapScene extends Phaser.Scene {
   debugCollider() {
     // @ts-ignore
     if (__DEBUG__) {
-        
+
       if (this.debugGraphics) {
         this.debugGraphics.clear();
       }
@@ -372,6 +379,9 @@ export default class TestTilemapScene extends Phaser.Scene {
         }
       }
     }
+
+    // this.interactKey.addListener
+    // this.input.keyboard.on('keydown-E', this.handleDialogConfirm, this);
 
     // this.physics.add.overlap(
     // 	player,
@@ -442,6 +452,7 @@ export default class TestTilemapScene extends Phaser.Scene {
           this.openDoor();
           break;
         default:
+          this.gameUI.displayMessage(`showDialog! ${trigger_name}`);
           console.log("showDialog", trigger_name);
       }
 

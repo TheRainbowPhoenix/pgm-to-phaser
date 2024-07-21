@@ -36,6 +36,8 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 
 	private consoleLog: Phaser.GameObjects.BitmapText;
 	private logInfo: Phaser.GameObjects.Layer;
+	public isDialogVisible: boolean = false;
+	public dialogTimeout: number = 0;
 
 	/* START-USER-CODE */
 
@@ -45,6 +47,33 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 		  });
 		  this.logInfo.setDepth(92);
 	}
+
+	showDialog(message: string, autoDismiss = true, timeout = 4500) {
+		console.log("showDialog")
+
+        this.consoleLog.setText(message); // todo: split if too long + add prompt hint ?
+		this.isDialogVisible = true;
+		if (autoDismiss) {
+            this.dialogTimeout = setTimeout(() => {
+				console.log("auto dismiss")
+                this.dismissDialog();
+            }, timeout);
+        }
+    }
+
+	dismissDialog() {
+        this.consoleLog.setText('');
+        this.isDialogVisible = false;
+
+        if (this.dialogTimeout !== 0) {
+            clearTimeout(this.dialogTimeout);
+            this.dialogTimeout = 0;
+        }
+    }
+
+	displayMessage(message: string) {
+        this.showDialog(message, true);
+    }
 
 	// Write your code here.
 

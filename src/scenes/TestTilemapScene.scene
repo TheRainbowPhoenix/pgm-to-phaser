@@ -97,7 +97,8 @@
                 {
                     "prefabId": "764daceb-3e5b-4fbc-ac92-362eb0b41331",
                     "id": "9c044f83-b561-43be-bc58-cac1de1b6ae3",
-                    "label": "gameUI"
+                    "label": "gameUI",
+                    "scope": "PUBLIC"
                 }
             ]
         }
@@ -196,6 +197,12 @@
             "type": "Keyboard.Key",
             "label": "downKey",
             "keyCode": "DOWN"
+        },
+        {
+            "id": "4bb160cc-586b-4713-985f-52761dd15179",
+            "type": "Keyboard.Key",
+            "label": "interactKey",
+            "keyCode": "E"
         }
     ],
     "meta": {

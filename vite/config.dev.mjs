@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
     base: "./",
     build: {
         rollupOptions: {
@@ -20,5 +20,8 @@ export default defineConfig({
 	},
     server: {
         port: 8080
+    },
+    define: {
+        '__DEBUG__': mode === 'development'
     }
-});
+}));

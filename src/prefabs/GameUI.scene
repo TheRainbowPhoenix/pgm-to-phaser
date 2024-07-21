@@ -14,75 +14,6 @@
     },
     "displayList": [
         {
-            "type": "Container",
-            "id": "64db2f32-e03e-4200-b4ab-01fcd7950014",
-            "label": "container_1",
-            "x": 26,
-            "y": 37,
-            "list": [
-                {
-                    "type": "BitmapText",
-                    "id": "1948e2b8-7d7c-4c99-bc71-a8efcfb13521",
-                    "label": "bitmaptext_1",
-                    "x": -18,
-                    "y": -24,
-                    "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZ\\nabcdefghijklmnopqrstuvwxyz\\n!\\\"#$%&'[]*+,-./{|}`･@~ \\n0123456789:;<=>?｢｣^_\\n『』【】()≪≫→←↑↓～゛゜､\n",
-                    "font": "font6x10",
-                    "fontSize": 10
-                },
-                {
-                    "type": "BitmapText",
-                    "id": "b6f63286-0c7e-4fd8-bdb1-3664d7fa5aec",
-                    "label": "bitmaptext",
-                    "x": -20,
-                    "y": -10,
-                    "text": "New BitmapText",
-                    "font": "font12x12",
-                    "fontSize": 10
-                },
-                {
-                    "type": "BitmapText",
-                    "id": "a0a21d87-2dd0-4fe9-9f01-94805251937f",
-                    "label": "bitmaptext_2",
-                    "x": -12,
-                    "y": 6,
-                    "text": "New BitmapText",
-                    "font": "font8x8",
-                    "fontSize": 10
-                },
-                {
-                    "type": "BitmapText",
-                    "id": "c388a989-1804-46c1-af94-a4468cf77b17",
-                    "label": "bitmaptext_3",
-                    "x": 133,
-                    "y": 29,
-                    "text": "1234567890\n\n",
-                    "font": "GN",
-                    "fontSize": 10
-                },
-                {
-                    "type": "BitmapText",
-                    "id": "7a5624bc-ca88-40a3-abbe-0c257376d393",
-                    "label": "bitmaptext_4",
-                    "x": -15,
-                    "y": 31,
-                    "text": "New BitmapText",
-                    "font": "a6x10",
-                    "fontSize": 10
-                },
-                {
-                    "type": "BitmapText",
-                    "id": "7081538b-0266-40c4-bbbf-ba1a5b7d1427",
-                    "label": "bitmaptext_5",
-                    "x": 141,
-                    "y": 58,
-                    "text": "01234567890\n",
-                    "font": "SN",
-                    "fontSize": 10
-                }
-            ]
-        },
-        {
             "type": "Layer",
             "id": "c83bc249-5fe2-4997-bf58-812c96d3c256",
             "label": "layer_1",
@@ -126,5 +57,27 @@
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
         "version": 5
-    }
+    },
+    "prefabProperties": [
+        {
+            "name": "isDialogVisible",
+            "label": "isDialogVisible",
+            "tooltip": "",
+            "defValue": false,
+            "customDefinition": false,
+            "type": {
+                "id": "boolean"
+            }
+        },
+        {
+            "name": "dialogTimeout",
+            "label": "dialogTimeout",
+            "tooltip": "",
+            "defValue": 0,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
 }
