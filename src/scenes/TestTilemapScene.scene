@@ -93,6 +93,11 @@
                         "stage04",
                         "window01"
                     ]
+                },
+                {
+                    "prefabId": "764daceb-3e5b-4fbc-ac92-362eb0b41331",
+                    "id": "9c044f83-b561-43be-bc58-cac1de1b6ae3",
+                    "label": "gameUI"
                 }
             ]
         }

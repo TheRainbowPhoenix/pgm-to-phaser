@@ -4,6 +4,7 @@
 
 import Phaser from "phaser";
 import Velonia from "../prefabs/Velonia";
+import GameUI from "../prefabs/GameUI";
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
@@ -63,6 +64,10 @@ export default class TestTilemapScene extends Phaser.Scene {
 		// tiledUI
 		const tiledUI = map.createLayer("layer1", ["window01"], 0, 0)!;
 		uiLayer.add(tiledUI);
+
+		// gameUI
+		const gameUI = new GameUI(this);
+		uiLayer.add(gameUI);
 
 		// lists
 		const items: Array<any> = [];

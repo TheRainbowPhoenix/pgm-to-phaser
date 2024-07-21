@@ -3,8 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "bridge0.tmx",
     "expandedProjectPaths": [
+        "tilesets",
+        "."
     ],
     "fileStates": {
         "Bridge1.tmx": {
@@ -137,10 +139,10 @@
         },
         "bridge0.tmx": {
             "scale": 3,
-            "selectedLayer": 0,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 424.5,
-                "y": 659.8333333333333
+                "x": 904.8333333333333,
+                "y": 519.5
             }
         },
         "map.json": {
@@ -169,11 +171,41 @@
         "tilesets/soace2.tsx": {
             "scaleInDock": 1
         },
+        "tilesets/stage01.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "tilesets/stage02.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "tilesets/stage03.tsx": {
+            "scaleInDock": 2,
             "scaleInEditor": 1.5
+        },
+        "tilesets/stage04.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 8
+        },
+        "tilesets/stage05.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/stage06.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/stage08.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/stage09.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/stage10.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "tilesets/window01.tsx": {
             "scaleInDock": 1
@@ -189,22 +221,31 @@
     "map.tileWidth": 16,
     "map.width": 80,
     "openFiles": [
+        "map.json",
+        "tilesets/stage01.tsx",
+        "tilesets/stage04.tsx",
+        "tilesets/stage05.tsx",
+        "tilesets/stage06.tsx",
+        "tilesets/stage08.tsx",
+        "tilesets/stage09.tsx",
+        "tilesets/stage10.tsx",
+        "bridge0.tmx"
     ],
     "project": "test.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "map.json",
+        "tilesets/stage01.tsx",
+        "tilesets/stage04.tsx",
+        "tilesets/stage05.tsx",
+        "tilesets/stage06.tsx",
+        "tilesets/stage08.tsx",
+        "tilesets/stage09.tsx",
+        "tilesets/stage10.tsx",
+        "bridge0.tmx",
         "tilesets/stage02.tsx",
         "tilesets/stage03.tsx",
-        "bridge0.tmx",
-        "Bridge1.tmx",
-        "Bridge2(end).tmx",
-        "Bridge3(amanda_OVER).tmx",
-        "LAB.tmx",
-        "Lv1_A.tmx",
-        "Lv1_B.tmx",
-        "Lv1_C.tmx",
-        "Lv1_D.tmx",
-        "Lv1_E.tmx"
+        "Bridge1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

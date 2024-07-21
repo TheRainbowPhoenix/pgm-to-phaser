@@ -2,6 +2,18 @@
     "section1": {
         "files": [
             {
+                "textureURL": "assets/bitmapFonts/a6x10.png",
+                "fontDataURL": "assets/bitmapFonts/a6x10.xml",
+                "type": "bitmapFont",
+                "key": "a6x10"
+            },
+            {
+                "textureURL": "assets/bitmapFonts/atari-sunset.png",
+                "fontDataURL": "assets/bitmapFonts/atari-sunset.xml",
+                "type": "bitmapFont",
+                "key": "atari-sunset"
+            },
+            {
                 "atlasURL": "assets/atlas/atlas.json",
                 "textureURL": "assets/atlas/atlas.png",
                 "type": "atlas",
@@ -23,9 +35,39 @@
                 "key": "dino"
             },
             {
+                "textureURL": "assets/bitmapFonts/font12x12.png",
+                "fontDataURL": "assets/bitmapFonts/font12x12.xml",
+                "type": "bitmapFont",
+                "key": "font12x12"
+            },
+            {
+                "textureURL": "assets/bitmapFonts/font6x10.png",
+                "fontDataURL": "assets/bitmapFonts/font6x10.xml",
+                "type": "bitmapFont",
+                "key": "font6x10"
+            },
+            {
+                "textureURL": "assets/bitmapFonts/font8x8.png",
+                "fontDataURL": "assets/bitmapFonts/font8x8.xml",
+                "type": "bitmapFont",
+                "key": "font8x8"
+            },
+            {
+                "textureURL": "assets/bitmapFonts/GN.png",
+                "fontDataURL": "assets/bitmapFonts/GN.xml",
+                "type": "bitmapFont",
+                "key": "GN"
+            },
+            {
                 "url": "assets/hasumi_screen.png",
                 "type": "image",
                 "key": "hasumi_screen"
+            },
+            {
+                "textureURL": "assets/bitmapFonts/k8x12.png",
+                "fontDataURL": "assets/bitmapFonts/k8x12.xml",
+                "type": "bitmapFont",
+                "key": "k8x12"
             },
             {
                 "url": "assets/logo.png",
@@ -83,6 +125,12 @@
                 "textureURL": "assets/atlas/player.png",
                 "type": "atlas",
                 "key": "player"
+            },
+            {
+                "textureURL": "assets/bitmapFonts/SN.png",
+                "fontDataURL": "assets/bitmapFonts/SN.xml",
+                "type": "bitmapFont",
+                "key": "SN"
             },
             {
                 "url": "assets/maps/tilesets/spase.png",
@@ -143,6 +191,12 @@
                 "url": "assets/atlas/tentacles.png",
                 "type": "image",
                 "key": "tentacles"
+            },
+            {
+                "atlasURL": "assets/ui/dialogs/text_board01.json",
+                "textureURL": "assets/ui/dialogs/text_board01.png",
+                "type": "atlas",
+                "key": "text_board01"
             },
             {
                 "url": "assets/ui/veronica/veronica_t1.png",

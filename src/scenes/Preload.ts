@@ -44,6 +44,10 @@ export default class Preload extends Phaser.Scene {
 		this.editorCreate();
 
 		this.load.pack("asset-pack", "assets/asset-pack.json");
+		
+		console.log(this.load.spine);
+
+		this.load.webfont('k8x12', 'k8x12');
 	}
 
 	create() {

@@ -3,5 +3,7 @@
     "skip": [
         "dist", "design"
     ],
-    "playUrl": "http://localhost:8080"
+    "playUrl": "http://localhost:8080",
+    
+	"flags": ["-port", "7080"]
 }
