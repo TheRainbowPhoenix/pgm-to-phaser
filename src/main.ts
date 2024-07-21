@@ -27,8 +27,8 @@ const config: Types.Core.GameConfig = {
     pixelArt: true,
     physics: {
         default: 'arcade',
-        arcade: {
-          debug: true,
+        arcade: { // @ts-ignore
+          debug: (__DEBUG__ || false ), 
           fixedStep: false,
           gravity: {
             x: 0,

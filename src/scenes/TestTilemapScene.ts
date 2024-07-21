@@ -301,15 +301,19 @@ export default class TestTilemapScene extends Phaser.Scene {
   }
 
   debugCollider() {
-    if (this.debugGraphics) {
-      this.debugGraphics.clear();
+    // @ts-ignore
+    if (__DEBUG__) {
+        
+      if (this.debugGraphics) {
+        this.debugGraphics.clear();
+      }
+      this.debugGraphics = this.add.graphics().setAlpha(0.75);
+      this.collideLayer.renderDebug(this.debugGraphics, {
+        tileColor: null, // Color of non-colliding tiles
+        collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+        faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+      });
     }
-    this.debugGraphics = this.add.graphics().setAlpha(0.75);
-    this.collideLayer.renderDebug(this.debugGraphics, {
-      tileColor: null, // Color of non-colliding tiles
-      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-    });
   }
 
   initColliders() {

@@ -12,7 +12,7 @@ const phasermsg = () => {
     }
 }   
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
     base: './',
     logLevel: 'warning',
     build: {
@@ -29,5 +29,8 @@ export default defineConfig({
     },
     plugins: [
         phasermsg()
-    ]
-});
+    ],
+    define: {
+        '__DEBUG__': mode === 'development'
+    }
+}));
