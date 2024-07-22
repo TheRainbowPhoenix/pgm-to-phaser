@@ -1,0 +1,205 @@
+{
+    "frames": [
+        {
+            "filename": "elevator_0.png",
+            "rotated": false,
+            "trimmed": false,
+            "sourceSize": {
+                "w": 96,
+                "h": 96
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            },
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            }
+        },
+        {
+            "filename": "elevator_1.png",
+            "rotated": false,
+            "trimmed": false,
+            "sourceSize": {
+                "w": 96,
+                "h": 96
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            },
+            "frame": {
+                "x": 96,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            }
+        },
+        {
+            "filename": "elevator_2.png",
+            "rotated": false,
+            "trimmed": false,
+            "sourceSize": {
+                "w": 96,
+                "h": 96
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            },
+            "frame": {
+                "x": 192,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            }
+        },
+        {
+            "filename": "elevator_3.png",
+            "rotated": false,
+            "trimmed": false,
+            "sourceSize": {
+                "w": 96,
+                "h": 96
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            },
+            "frame": {
+                "x": 0,
+                "y": 96,
+                "w": 96,
+                "h": 96
+            }
+        },
+        {
+            "filename": "elevator_4.png",
+            "rotated": false,
+            "trimmed": false,
+            "sourceSize": {
+                "w": 96,
+                "h": 96
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            },
+            "frame": {
+                "x": 96,
+                "y": 96,
+                "w": 96,
+                "h": 96
+            }
+        },
+        {
+            "filename": "elevator_5.png",
+            "rotated": false,
+            "trimmed": false,
+            "sourceSize": {
+                "w": 96,
+                "h": 96
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            },
+            "frame": {
+                "x": 192,
+                "y": 96,
+                "w": 96,
+                "h": 96
+            }
+        },
+        {
+            "filename": "elevator_6.png",
+            "rotated": false,
+            "trimmed": false,
+            "sourceSize": {
+                "w": 96,
+                "h": 96
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            },
+            "frame": {
+                "x": 0,
+                "y": 192,
+                "w": 96,
+                "h": 96
+            }
+        },
+        {
+            "filename": "elevator_7.png",
+            "rotated": false,
+            "trimmed": false,
+            "sourceSize": {
+                "w": 96,
+                "h": 96
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            },
+            "frame": {
+                "x": 96,
+                "y": 192,
+                "w": 96,
+                "h": 96
+            }
+        },
+        {
+            "filename": "elevator_8.png",
+            "rotated": false,
+            "trimmed": false,
+            "sourceSize": {
+                "w": 96,
+                "h": 96
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 96,
+                "h": 96
+            },
+            "frame": {
+                "x": 192,
+                "y": 192,
+                "w": 96,
+                "h": 96
+            }
+        }
+    ],
+    "meta": {
+        "app": "http://www.codeandweb.com/texturepacker",
+        "version": "1.0",
+        "image": "elevator.png",
+        "format": "RGBA8888",
+        "size": {
+            "w": 288,
+            "h": 288
+        },
+        "scale": "1",
+        "smartupdate": "$TexturePacker:SmartUpdate:0bd9942c57d8ce2036df6d61b997ffee:d3b00db9bd52d2286ca490f22371e19f:7367abe05465f33555345994fbb3342e$"
+    }
+}

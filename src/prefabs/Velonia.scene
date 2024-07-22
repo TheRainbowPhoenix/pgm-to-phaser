@@ -11,42 +11,91 @@
     },
     "displayList": [
         {
-            "type": "Sprite",
-            "id": "32b6c46d-6881-43f4-a5b4-5154c653980f",
-            "label": "sprite_1",
-            "hitArea.shape": "RECTANGLE",
-            "hitArea.x": 17,
-            "hitArea.y": 14,
-            "hitArea.width": 32,
-            "hitArea.height": 34,
-            "texture": {
-                "key": "player",
-                "frame": "player_6.png"
-            },
-            "x": 32,
+            "type": "Container",
+            "id": "2a3a7ca9-372a-4175-886c-f0a13d51a62e",
+            "label": "container_1",
+            "x": 26,
             "y": 32,
-            "ArcadeComponent.active": true,
-            "maxSpeed": 400,
-            "body.maxVelocity.x": 1000,
-            "body.maxVelocity.y": 1000,
-            "body.friction.x": 0,
-            "allowGravity": false,
-            "allowDrag": false,
-            "allowRotation": false,
-            "pushable": false,
-            "body.width": 18,
-            "body.height": 34,
-            "body.offset.x": 22,
-            "body.offset.y": 16,
             "list": [
                 {
-                    "prefabId": "61dde64d-6c82-4109-a4a2-c88cb5eb249d",
-                    "id": "126ed169-3388-49e4-b5e0-f9cf0b82c08f",
-                    "unlock": [
-                        "animationKey"
-                    ],
-                    "label": "startAnimationScript",
-                    "animationKey": "player/idle/player-right-idle"
+                    "type": "Sprite",
+                    "id": "32b6c46d-6881-43f4-a5b4-5154c653980f",
+                    "label": "sprite",
+                    "scope": "PUBLIC",
+                    "texture": {
+                        "key": "player",
+                        "frame": "player_6.png"
+                    },
+                    "x": 6,
+                    "ArcadeComponent.active": true,
+                    "maxSpeed": 400,
+                    "body.maxVelocity.x": 1000,
+                    "body.maxVelocity.y": 1000,
+                    "body.friction.x": 0,
+                    "allowGravity": false,
+                    "allowDrag": false,
+                    "allowRotation": false,
+                    "pushable": false,
+                    "body.width": 18,
+                    "body.height": 34,
+                    "body.offset.x": 22,
+                    "body.offset.y": 16,
+                    "list": [
+                        {
+                            "prefabId": "61dde64d-6c82-4109-a4a2-c88cb5eb249d",
+                            "id": "126ed169-3388-49e4-b5e0-f9cf0b82c08f",
+                            "unlock": [
+                                "animationKey"
+                            ],
+                            "label": "startAnimationScript",
+                            "animationKey": "player/idle/player-right-idle"
+                        }
+                    ]
+                },
+                {
+                    "type": "BitmapText",
+                    "id": "a8abae5c-9b96-49a3-a37b-ffb1f866aed0",
+                    "label": "numberCount",
+                    "scope": "PUBLIC",
+                    "x": -2,
+                    "y": 20,
+                    "visible": false,
+                    "text": "63",
+                    "font": "SN",
+                    "fontSize": 10
+                },
+                {
+                    "type": "ArcadeImage",
+                    "id": "155db00c-0f23-478d-ad4a-a753acd9a776",
+                    "label": "collider",
+                    "displayName": "collider",
+                    "scope": "PUBLIC",
+                    "texture": {},
+                    "x": 6,
+                    "y": 1,
+                    "visible": false,
+                    "alpha": 0.01,
+                    "alphaTopLeft": 0.01,
+                    "alphaTopRight": 0.01,
+                    "alphaBottomLeft": 0.01,
+                    "alphaBottomRight": 0.01,
+                    "bodyGeometry": 0,
+                    "radius": 14,
+                    "body.width": 128,
+                    "body.height": 128
+                },
+                {
+                    "type": "BitmapText",
+                    "id": "1244bb3f-5592-43e6-b59c-4183c6440923",
+                    "label": "numberGun",
+                    "displayName": "numberGun",
+                    "scope": "CLASS",
+                    "x": -28,
+                    "y": -8,
+                    "visible": false,
+                    "text": "99",
+                    "font": "GN",
+                    "fontSize": 10
                 }
             ]
         }

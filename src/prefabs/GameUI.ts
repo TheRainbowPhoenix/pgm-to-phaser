@@ -17,39 +17,136 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 		this.add(logInfo);
 
 		// bottom_text_board
-		const bottom_text_board = scene.add.image(512, 346, "text_board01", "bottom_text_board");
+		const bottom_text_board = scene.add.image(512, 412, "text_board01", "bottom_text_board");
 		logInfo.add(bottom_text_board);
 
 		// consoleLog
-		const consoleLog = scene.add.bitmapText(374, 328, "k8x12", "Captain's access key is required to move to level 2.");
-		consoleLog.text = "Captain's access key is required to move to level 2.";
+		const consoleLog = scene.add.bitmapText(374, 328, "k8x12", " \n");
+		consoleLog.text = " \n";
 		consoleLog.fontSize = -12;
 		logInfo.add(consoleLog);
 
+		// map
+		const map = scene.add.layer();
+		this.add(map);
+
+		// levelMap
+		const levelMap = scene.add.sprite(1120, 176, "MAP_Lv1_bridge_1", "MAP_1b_request_crew.png");
+		levelMap.setOrigin(1, 0.5);
+		map.add(levelMap);
+
+		// elevator
+		const elevator = scene.add.layer();
+		this.add(elevator);
+
+		// elevator_console
+		const elevator_console = scene.add.image(320, -64, "elevator", "elevator_6.png");
+		elevator.add(elevator_console);
+
+		this.bottom_text_board = bottom_text_board;
 		this.consoleLog = consoleLog;
 		this.logInfo = logInfo;
+		this.levelMap = levelMap;
+		this.map = map;
+		this.elevator_console = elevator_console;
+		this.elevator = elevator;
 
 		/* START-USER-CTR-CODE */
 		// Write your code here.
 		/* END-USER-CTR-CODE */
 	}
 
+	private bottom_text_board: Phaser.GameObjects.Image;
 	private consoleLog: Phaser.GameObjects.BitmapText;
 	private logInfo: Phaser.GameObjects.Layer;
+	private levelMap: Phaser.GameObjects.Sprite;
+	private map: Phaser.GameObjects.Layer;
+	private elevator_console: Phaser.GameObjects.Image;
+	private elevator: Phaser.GameObjects.Layer;
 	public isDialogVisible: boolean = false;
 	public dialogTimeout: number = 0;
+	public levelMapVisible: boolean = false;
+	public sectorMiniMap: number = 0;
 
 	/* START-USER-CODE */
 
 	setScrollFactor(x: number, y:number) {
 		this.logInfo.getChildren().forEach((elem: any) => {
 			elem.setScrollFactor(0, 0);
-		  });
-		  this.logInfo.setDepth(92);
+		});
+
+		this.map.getChildren().forEach((elem: any) => {
+			elem.setScrollFactor(0, 0);
+		});
+
+		this.elevator.getChildren().forEach((elem: any) => {
+			elem.setScrollFactor(0, 0);
+		});
+
+		this.logInfo.setDepth(92);
+	}
+
+	// Full level map
+
+	showLevelMap() {
+		if (!this.levelMapVisible) {
+			// TODO: swap the content according to the level
+
+			this.scene.tweens.add({
+			  targets: this.levelMap,
+			  x: 660, // Final position
+			  duration: 500,
+			  ease: "Elastic",
+			  easeParams: [0.1, 1.5], // Adjust for more elasticity
+			});
+			this.levelMapVisible = true;
+		  }
+	}
+
+	hideLevelMap() {
+		if (this.levelMapVisible) {
+			this.scene.tweens.add({
+			targets: this.levelMap,
+			x: 800 + 320, // Off-screen to the right
+			duration: 500,
+			ease: "Power2",
+			});
+			this.levelMapVisible = false;
+		}
+
+	}
+
+	// Elevator
+	showElevatorMenu() {
+		this.scene.tweens.add({
+			targets: this.elevator_console,
+			x: 320,
+			y: 44,
+			duration: 500,
+			ease: "Elastic",
+			easeParams: [0.1, 1.4],
+		});
+    }
+
+	hideElevatorMenu() {
+		this.scene.tweens.add({
+			targets: this.elevator_console,
+			x: 320, // Final position
+			y: -64,
+			duration: 500,
+			ease: "Elastic.In",
+			easeParams: [0.1, 1.4], // Adjust for more elasticity
+		});
 	}
 
 	showDialog(message: string, autoDismiss = true, timeout = 4500) {
-		console.log("showDialog")
+		this.scene.tweens.add({
+			targets: this.bottom_text_board,
+			x: 512,
+			y: 346,
+			duration: 50,
+			ease: "Power2",
+		  });
 
         this.consoleLog.setText(message); // todo: split if too long + add prompt hint ?
 		this.isDialogVisible = true;
@@ -63,6 +160,16 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 
 	dismissDialog() {
         this.consoleLog.setText('');
+
+		this.scene.tweens.add({
+			targets: this.bottom_text_board,
+			x: 512, // Final position
+			y: 412,
+			duration: 500,
+			ease: "Elastic.In",
+			easeParams: [0.6, 0.8], // Adjust for more elasticity
+		});
+
         this.isDialogVisible = false;
 
         if (this.dialogTimeout !== 0) {

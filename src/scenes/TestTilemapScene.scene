@@ -66,20 +66,6 @@
             "scope": "CLASS",
             "list": [
                 {
-                    "type": "Sprite",
-                    "id": "f0348ec3-4fc8-447e-83e8-3e1c35b8661d",
-                    "label": "levelMap",
-                    "displayName": "levelMap",
-                    "scope": "CLASS",
-                    "texture": {
-                        "key": "MAP_Lv1_bridge_1",
-                        "frame": "MAP_1b_request_crew.png"
-                    },
-                    "x": 1120,
-                    "y": 176,
-                    "originX": 1
-                },
-                {
                     "type": "TilemapLayer",
                     "id": "c5ebdce7-f484-47b3-8d97-1769452594dc",
                     "label": "tiledUI",
@@ -203,6 +189,12 @@
             "type": "Keyboard.Key",
             "label": "interactKey",
             "keyCode": "E"
+        },
+        {
+            "id": "ed01bc90-2fae-4f70-a439-8303906fac11",
+            "type": "Keyboard.Key",
+            "label": "fireKey",
+            "keyCode": "W"
         }
     ],
     "meta": {

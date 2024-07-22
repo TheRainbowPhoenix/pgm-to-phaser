@@ -30,6 +30,7 @@
         "fontfaceobserver": "^2.3.0",
         "phaser": "^3.80.1",
         "phaser3-rex-plugins": "^1.80.5",
+        "short-uuid": "^5.2.0",
         "webfontloader": "^1.6.28"
     }
 }

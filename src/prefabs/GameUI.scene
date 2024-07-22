@@ -28,12 +28,13 @@
                             "type": "Image",
                             "id": "561a9550-dd6b-4145-872d-038fc9c6586f",
                             "label": "bottom_text_board",
+                            "scope": "CLASS",
                             "texture": {
                                 "key": "text_board01",
                                 "frame": "bottom_text_board"
                             },
                             "x": 512,
-                            "y": 346
+                            "y": 412
                         },
                         {
                             "type": "BitmapText",
@@ -42,9 +43,53 @@
                             "scope": "CLASS",
                             "x": 374,
                             "y": 328,
-                            "text": "Captain's access key is required to move to level 2.",
+                            "text": " \n",
                             "font": "k8x12",
                             "fontSize": -12
+                        }
+                    ]
+                },
+                {
+                    "type": "Layer",
+                    "id": "d52fd4fa-61fb-4d85-95cf-7a947d9f851f",
+                    "label": "map",
+                    "scope": "CLASS",
+                    "list": [
+                        {
+                            "type": "Sprite",
+                            "id": "d4ca83a3-6101-4977-abbf-fd8f5f8ceef2",
+                            "label": "levelMap",
+                            "displayName": "levelMap",
+                            "scope": "CLASS",
+                            "texture": {
+                                "key": "MAP_Lv1_bridge_1",
+                                "frame": "MAP_1b_request_crew.png"
+                            },
+                            "x": 1120,
+                            "y": 176,
+                            "originX": 1
+                        }
+                    ]
+                },
+                {
+                    "type": "Layer",
+                    "id": "684a4b24-b735-4d56-8d96-6ab8005afab4",
+                    "label": "elevator",
+                    "displayName": "elevator",
+                    "scope": "CLASS",
+                    "list": [
+                        {
+                            "type": "Image",
+                            "id": "23e274ce-1a5e-4a5f-8bd5-e6497e5c10a2",
+                            "label": "elevator_console",
+                            "displayName": "elevator_console",
+                            "scope": "CLASS",
+                            "texture": {
+                                "key": "elevator",
+                                "frame": "elevator_6.png"
+                            },
+                            "x": 320,
+                            "y": -64
                         }
                     ]
                 }
@@ -72,6 +117,26 @@
         {
             "name": "dialogTimeout",
             "label": "dialogTimeout",
+            "tooltip": "",
+            "defValue": 0,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "levelMapVisible",
+            "label": "levelMapVisible",
+            "tooltip": "",
+            "defValue": false,
+            "customDefinition": false,
+            "type": {
+                "id": "boolean"
+            }
+        },
+        {
+            "name": "sectorMiniMap",
+            "label": "sectorMiniMap",
             "tooltip": "",
             "defValue": 0,
             "customDefinition": false,

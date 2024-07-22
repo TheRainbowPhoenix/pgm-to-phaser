@@ -1,12 +1,12 @@
 import json
 
 # Define the size of each image
-image_w_size = 320
-image_h_size = 64
-grid_w_size = 1
-grid_h_size = 2
+image_w_size = 96
+image_h_size = 96
+grid_w_size = 4
+grid_h_size = 4
 
-name = "text_board01"
+name = "bullets"
 
 # Initialize the JSON structure
 json_structure = {
@@ -52,7 +52,7 @@ for y in range(grid_h_size):
         json_structure["frames"].append(frame)
 
 # Save the JSON structure to a file
-with open(f'../public/assets/ui/dialogs/{name}.json', 'w') as json_file:
+with open(f'../public/assets/atlas/{name}.json', 'w') as json_file:
     json.dump(json_structure, json_file, indent=4)
 
 print(f"JSON structure generated and saved to {name}.json")

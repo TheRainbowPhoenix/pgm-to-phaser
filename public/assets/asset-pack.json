@@ -30,9 +30,21 @@
                 "key": "bridge0"
             },
             {
+                "atlasURL": "assets/atlas/bullets.json",
+                "textureURL": "assets/atlas/bullets.png",
+                "type": "atlas",
+                "key": "bullets"
+            },
+            {
                 "url": "assets/dino.png",
                 "type": "image",
                 "key": "dino"
+            },
+            {
+                "atlasURL": "assets/ui/menu/elevator.json",
+                "textureURL": "assets/ui/menu/elevator.png",
+                "type": "atlas",
+                "key": "elevator"
             },
             {
                 "textureURL": "assets/bitmapFonts/font12x12.png",
@@ -109,11 +121,6 @@
                 "url": "assets/ui/menu/menu02.png",
                 "type": "image",
                 "key": "menu02"
-            },
-            {
-                "url": "assets/ui/menu/menu03.png",
-                "type": "image",
-                "key": "menu03"
             },
             {
                 "url": "assets/platform.png",

@@ -6,6 +6,7 @@ import Phaser from "phaser";
 import Velonia from "../prefabs/Velonia";
 import GameUI from "../prefabs/GameUI";
 /* START-USER-IMPORTS */
+import Bullet from "../prefabs/Bullet";
 /* END-USER-IMPORTS */
 
 export default class TestTilemapScene extends Phaser.Scene {
@@ -46,6 +47,9 @@ export default class TestTilemapScene extends Phaser.Scene {
 		// interactKey
 		const interactKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
+		// fireKey
+		const fireKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
 		// bgLayer
 		const bgLayer = map.createLayer("layer4", ["stage03","stage04","stage01"], 0, 0)!;
 
@@ -58,11 +62,6 @@ export default class TestTilemapScene extends Phaser.Scene {
 
 		// uiLayer
 		const uiLayer = this.add.layer();
-
-		// levelMap
-		const levelMap = this.add.sprite(1120, 176, "MAP_Lv1_bridge_1", "MAP_1b_request_crew.png");
-		levelMap.setOrigin(1, 0.5);
-		uiLayer.add(levelMap);
 
 		// tiledUI
 		const tiledUI = map.createLayer("layer1", ["window01"], 0, 0)!;
@@ -91,7 +90,6 @@ export default class TestTilemapScene extends Phaser.Scene {
 		this.bgLayer = bgLayer;
 		this.collideLayer = collideLayer;
 		this.player = player;
-		this.levelMap = levelMap;
 		this.gameUI = gameUI;
 		this.uiLayer = uiLayer;
 		this.map = map;
@@ -101,6 +99,7 @@ export default class TestTilemapScene extends Phaser.Scene {
 		this.upKey = upKey;
 		this.downKey = downKey;
 		this.interactKey = interactKey;
+		this.fireKey = fireKey;
 		this.items = items;
 		this.enemies = enemies;
 
@@ -110,7 +109,6 @@ export default class TestTilemapScene extends Phaser.Scene {
 	private bgLayer!: Phaser.Tilemaps.TilemapLayer;
 	private collideLayer!: Phaser.Tilemaps.TilemapLayer;
 	private player!: Velonia;
-	private levelMap!: Phaser.GameObjects.Sprite;
 	public gameUI!: GameUI;
 	private uiLayer!: Phaser.GameObjects.Layer;
 	private map!: Phaser.Tilemaps.Tilemap;
@@ -120,6 +118,7 @@ export default class TestTilemapScene extends Phaser.Scene {
 	private upKey!: Phaser.Input.Keyboard.Key;
 	private downKey!: Phaser.Input.Keyboard.Key;
 	private interactKey!: Phaser.Input.Keyboard.Key;
+	private fireKey!: Phaser.Input.Keyboard.Key;
 	private items!: Array<any>;
 	private enemies!: Array<any>;
 
@@ -128,11 +127,17 @@ export default class TestTilemapScene extends Phaser.Scene {
   protected lastDir: number = 0;
   protected animatedTiles: any[] = [];
   protected boxTriggerGroup: Phaser.Physics.Arcade.StaticGroup;
-  protected inInteraction: boolean = false;
+  protected inUINavigation: boolean = false;
   private activeTrigger: any;
-  private mapShown: boolean = false;
   private debugGraphics: any;
+
+  private callingElevator: boolean = false;
+  private elevatorCounter: number = 0;
+  private elevatorDuration: number = 0;
   // Write your code here
+
+  private bullets: Phaser.Physics.Arcade.Group;
+  private lastFiredBullet: number = 0;
 
   create() {
     this.editorCreate();
@@ -144,23 +149,72 @@ export default class TestTilemapScene extends Phaser.Scene {
     this.initAnimations();
 
     this.initCamera();
+
+    this.initBullets();
   }
 
   initCamera() {
     const cam = this.cameras.main;
     cam.setBounds(0, 0, this.bgLayer.width, this.bgLayer.height);
 
-    cam.startFollow(this.player, false, 1, 1);
+    cam.startFollow(this.player.sprite.body, false, 1, 1);
     cam.setDeadzone(100, 150);
     // cam.setZoom(2);
   }
 
+  initBullets() {
+    // Create bullets group
+    this.bullets = this.physics.add.group({
+      classType: Bullet,
+      runChildUpdate: true
+    });
+
+    this.physics.world.on('worldbounds', (body: any) => {
+      if (body.gameObject instanceof Bullet) {
+          body.gameObject.destroy();
+      }
+    });
+
+  }
+
+  fireBullet() {
+    const currentTime = this.time.now;
+    if (currentTime - this.lastFiredBullet > 300) {
+      this.player.numberCount
+        const direction = this.getPlayerDirection(this.lastDir);
+        // TODO: directions fix for fire offset
+        const bullet = new Bullet(this, this.player.x + this.player.collider.x, this.player.y+ this.player.collider.y);
+
+        this.bullets.add(bullet);
+        this.physics.add.collider(this.collideLayer, bullet, (bullet, layer) => {
+            // TODO: play animation of bullet hit 
+            bullet.destroy();
+        });
+        this.add.existing(bullet);
+
+        bullet.fireDirection(direction);
+        // TODO: play light on player after fire
+
+        this.lastFiredBullet = currentTime;
+    }
+
+  }
+
   update(time: number, delta: number) {
-    this.movePlayer();
+    super.update(time, delta);
+
+    if (!this.inUINavigation) {
+      this.movePlayer();
+      this.handleInteractions();
+    }
 
     this.handleAnimateTiles(this, delta);
 
-    this.handleInteractions();
+    this.handleElevator(delta);
+
+    if(this.fireKey.isDown) {
+      this.fireBullet();
+    }
 
     // fix camera position
     // const cam = this.cameras.main;
@@ -173,13 +227,65 @@ export default class TestTilemapScene extends Phaser.Scene {
     // cam.scrollY = row * cam.height;
   }
 
+  handleElevator(delta: number) {
+    if (this.callingElevator) {
+      this.elevatorCounter += delta;
+      let progress = Phaser.Math.Clamp(this.elevatorCounter / 5000, 0, 1) * 100;
+
+      if (progress >= 99) {
+        this.player.hideCount();
+        this.gameUI.showElevatorMenu();
+        this.callingElevator = false;
+      } else {
+        this.player.setCount(Math.min(progress | 0, 99));
+      }
+    }
+
+  }
+
+  getPlayerDirection(currentDir: number) {
+    let playerDirection = "right";
+
+    switch (currentDir) {
+      case 11:
+        playerDirection = "SE";
+        break;
+      case 10:
+        playerDirection = "right";
+        break;
+      case 9:
+        playerDirection = "NE";
+        break;
+
+      case 1:
+        playerDirection = "down";
+        break;
+      case -1:
+        playerDirection = "up";
+        break;
+
+      case -9:
+        playerDirection = "SW";
+        break;
+      case -10:
+        playerDirection = "left";
+        break;
+      case -11:
+        playerDirection = "NW";
+        break;
+      default:
+        playerDirection = "right";
+    }
+    return playerDirection;
+  }
+
   movePlayer() {
     if (this.player.hurtFlag) {
       return;
     }
-    this.player.body.setVelocity(0);
 
     const body = this.player.getBody();
+    body.setVelocity(0);
 
     const jumpDown = this.upKey.isDown || this.spaceKey.isDown; // || this.controllerJump.isDown;
     const upDown = this.upKey.isDown; // || this.controllerLeft.isDown;
@@ -232,36 +338,7 @@ export default class TestTilemapScene extends Phaser.Scene {
       currentDir = this.lastDir;
     }
 
-    switch (currentDir) {
-      case 11:
-        playerDirection = "SE";
-        break;
-      case 10:
-        playerDirection = "right";
-        break;
-      case 9:
-        playerDirection = "NE";
-        break;
-
-      case 1:
-        playerDirection = "down";
-        break;
-      case -1:
-        playerDirection = "up";
-        break;
-
-      case -9:
-        playerDirection = "SW";
-        break;
-      case -10:
-        playerDirection = "left";
-        break;
-      case -11:
-        playerDirection = "NW";
-        break;
-      default:
-        playerDirection = "right";
-    }
+    playerDirection = this.getPlayerDirection(currentDir);
 
     if (xDir == 0 && yDir == 0) {
       this.player.body.velocity.x = 0;
@@ -369,10 +446,12 @@ export default class TestTilemapScene extends Phaser.Scene {
           boxTrigger.visible = false;
           boxTrigger.trigger_name = trigger.name;
 
+          console.log(this.physics.add.overlap);
+
           this.physics.add.overlap(
-            this.player,
+            this.player.sprite,
             boxTrigger,
-            this.showDialog as any,
+            this.doBoxTrigger as any,
             undefined,
             this
           );
@@ -380,7 +459,6 @@ export default class TestTilemapScene extends Phaser.Scene {
       }
     }
 
-    // this.interactKey.addListener
     // this.input.keyboard.on('keydown-E', this.handleDialogConfirm, this);
 
     // this.physics.add.overlap(
@@ -390,6 +468,10 @@ export default class TestTilemapScene extends Phaser.Scene {
     // 	undefined,
     // 	this
     //   );
+  }
+
+  handleDialogConfirm(e: any) {
+    console.log(e);
   }
 
   /**
@@ -425,20 +507,38 @@ export default class TestTilemapScene extends Phaser.Scene {
     item.destroy();
   }
 
+  toggleBreathingEffect() {
+    if (!this.inUINavigation) {
+      // if (this.player.breathIn) {
+      //   this.player.breathIn = false;
+      //   this.player.sprite.y = this.player.collider.y + 1
+      // } else {
+      //   this.player.breathIn = true;
+      //   this.player.sprite.y = this.player.collider.y - 1
+      // }
+    }
+  }
+
   handleInteractions() {
     // Check if player is no longer overlapping any trigger
     if (
       this.activeTrigger &&
       !Phaser.Geom.Intersects.RectangleToRectangle(
-        this.player.getBounds(),
+        this.player.collider.getBounds(),
         this.activeTrigger.getBounds()
+        // this.activeTrigger.getBounds()
       )
     ) {
-      this.hideDialog();
+      console.log(this.activeTrigger.body, this.activeTrigger.getBounds());
+      this.endBoxTrigger();
+    }
+
+    if (this.interactKey.isDown && this.gameUI.isDialogVisible) {
+      this.gameUI.dismissDialog();
     }
   }
 
-  showDialog(player: Velonia, trigger: Phaser.Physics.Arcade.Sprite) {
+  doBoxTrigger(player: Velonia, trigger: Phaser.Physics.Arcade.Sprite) {
     if (this.activeTrigger !== trigger) {
       // dialogText.setText(trigger.trigger_name);
       // dialogText.setVisible(true);
@@ -446,66 +546,75 @@ export default class TestTilemapScene extends Phaser.Scene {
 
       switch (trigger_name) {
         case "map_view":
-          this.showLevelMap();
+          this.gameUI.showLevelMap();
           break;
         case "door_open":
           this.openDoor();
           break;
+        case "comm_view":
+          this.gameUI.showDialog(`comm_view`, false);
+          break;
+        case "elevator":
+          this.callElevator();
+          // this.gameUI.showElevatorMenu();
+          break;
         default:
-          this.gameUI.displayMessage(`showDialog! ${trigger_name}`);
-          console.log("showDialog", trigger_name);
+          this.gameUI.displayMessage(`doBoxTrigger! ${trigger_name}`);
+          console.log("doBoxTrigger", trigger_name);
       }
 
+      // @ts-ignore
+      trigger.bounds = new Phaser.Geom.Rectangle(trigger.x, trigger.y, trigger.width, trigger.height);
       this.activeTrigger = trigger;
     }
   }
 
-  hideDialog() {
-    console.log("hideDialog");
+  endBoxTrigger() {
+    console.log("endBoxTrigger");
     // dialogText.setVisible(false);
     if (this.activeTrigger) {
       let trigger_name = (this.activeTrigger as any).trigger_name;
       switch (trigger_name) {
         case "map_view":
-          this.hideLevelMap();
+          this.gameUI.hideLevelMap();
           break;
         case "door_open":
           this.closeDoor();
           break;
+        case "elevator":
+          this.dismissElevator();
+          // this.gameUI.hideElevatorMenu();
+          break;
         default:
-          console.log("hideDialog", trigger_name);
+          console.log("endBoxTrigger", trigger_name);
       }
 
       this.activeTrigger = null;
     }
   }
 
-  showLevelMap() {
-    if (!this.mapShown) {
-      // TODO: swap the content according to the level
 
-      this.tweens.add({
-        targets: this.levelMap,
-        x: 660, // Final position
-        duration: 500,
-        ease: "Elastic",
-        easeParams: [0.1, 1.5], // Adjust for more elasticity
-      });
-      this.mapShown = true;
+  callElevator() {
+    console.log("callElevator");
+
+    if (!this.callingElevator) {
+      this.callingElevator = true;
+      this.elevatorCounter = 0;
     }
   }
 
-  hideLevelMap() {
-    if (this.mapShown) {
-      this.tweens.add({
-        targets: this.levelMap,
-        x: 800 + 320, // Off-screen to the right
-        duration: 500,
-        ease: "Power2",
-      });
-      this.mapShown = false;
-    }
+  dismissElevator() {
+    console.log("dismissElevator");
+
+    this.callingElevator = false;
+    this.elevatorCounter = 0;
+    this.elevatorDuration = 0;
+    this.gameUI.hideElevatorMenu();
+    // this.player.setCount(0);
+    this.player.hideCount();
+
   }
+
 
   closeDoor() {
     for (let y = 30; y <= 31; y++) {
