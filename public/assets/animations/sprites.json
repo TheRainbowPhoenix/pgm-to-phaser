@@ -65,6 +65,70 @@
             "randomFrame": false
         },
         {
+            "key": "player/idle/player-NE-idle",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "player",
+                    "frame": "player_5.png",
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 24,
+            "skipMissedFrames": true,
+            "repeat": -1,
+            "randomFrame": false
+        },
+        {
+            "key": "player/idle/player-SW-idle",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "player",
+                    "frame": "player_1.png",
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 24,
+            "skipMissedFrames": true,
+            "repeat": -1,
+            "randomFrame": false
+        },
+        {
+            "key": "player/idle/player-SE-idle",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "player",
+                    "frame": "player_7.png",
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 24,
+            "skipMissedFrames": true,
+            "repeat": -1,
+            "randomFrame": false
+        },
+        {
+            "key": "player/idle/player-NW-idle",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "player",
+                    "frame": "player_3.png",
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 24,
+            "skipMissedFrames": true,
+            "repeat": -1,
+            "randomFrame": false
+        },
+        {
             "key": "player/walk/player-right-walk",
             "type": "frame",
             "frames": [

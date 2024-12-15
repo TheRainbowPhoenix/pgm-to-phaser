@@ -127,7 +127,11 @@ export default class TestTilemapScene extends Phaser.Scene {
   private player_speed: number = 150;
   private gamepad?: Phaser.Input.Gamepad.Gamepad;
 
+  private aiming: boolean = false;
+  protected aims: [number, number] = [1, 0];
+
   protected lastDir: string = "right";
+  protected lastPos: [number, number] = [1, 0];
   protected animatedTiles: any[] = [];
   protected boxTriggerGroup: Phaser.Physics.Arcade.StaticGroup;
   protected inUINavigation: boolean = false;
@@ -204,22 +208,31 @@ export default class TestTilemapScene extends Phaser.Scene {
   fireBullet() {
     const currentTime = this.time.now;
     if (currentTime - this.lastFiredBullet > 300) {
-      this.player.numberCount
-        const direction = this.getPlayerDirection(this.lastDir); // TODO: fix this ::
-        // TODO: directions fix for fire offset
-        const bullet = new Bullet(this, this.player.x + this.player.collider.x, this.player.y+ this.player.collider.y);
+      let [aimX, aimY] = this.aims;
 
-        this.bullets.add(bullet);
-        this.physics.add.collider(this.collideLayer, bullet, (bullet, layer) => {
-            // TODO: play animation of bullet hit 
-            bullet.destroy();
-        });
-        this.add.existing(bullet);
+      [aimX, aimY] = this.getAimDirection(aimX, aimY);
+      
+      if (aimX === 0 && aimY === 0) {
+        [aimX, aimY] = this.lastPos
+        if (aimX === 0 && aimY === 0)
+          return;
+      }
 
-        bullet.fireDirection(direction);
-        // TODO: play light on player after fire
+      // const direction = this.getPlayerDirection(this.lastDir); // TODO: fix this ::
+      // TODO: directions fix for fire offset
+      const bullet = new Bullet(this, this.player.x + this.player.collider.x, this.player.y+ this.player.collider.y);
 
-        this.lastFiredBullet = currentTime;
+      this.bullets.add(bullet);
+      this.physics.add.collider(this.collideLayer, bullet, (bullet, layer) => {
+          // TODO: play animation of bullet hit 
+          bullet.destroy();
+      });
+      this.add.existing(bullet);
+
+      bullet.fireDirection(aimX, aimY);
+      // TODO: play light on player after fire
+
+      this.lastFiredBullet = currentTime;
     }
 
   }
@@ -312,6 +325,18 @@ export default class TestTilemapScene extends Phaser.Scene {
     return playerDirection
   }
 
+  getAimDirection(xDir: number, yDir: number) {
+    if (xDir !== 0 || yDir !== 0) {
+      // Normalize the joystick vector
+      const magnitude = Math.sqrt(xDir * xDir + yDir * yDir);
+      xDir /= magnitude;
+      yDir /= magnitude;
+      return [xDir, yDir]
+    } else {
+      return [0, 0]
+    }
+  }
+
   roundToStep (value: number, step: number) {
     return Math.sign(value) * Math.floor(Math.abs(value) / step) * step;
   } 
@@ -357,18 +382,28 @@ export default class TestTilemapScene extends Phaser.Scene {
     let yDir = 0;
     let xDir = 0;
 
+    let xAim = 0;
+    let yAim = 0;
+
     if (this.gamepad) {
       const joystickX = this.gamepad.axes[0].value || 0; // Joystick x-axis value (-1 to 1)
       const joystickY = this.gamepad.axes[1].value || 0; // Joystick y-axis value (-1 to 1)
 
+      let joystickAimX = this.gamepad.axes[2]?.value || 0; // Joystick x-axis aim value
+      let joystickAimY = this.gamepad.axes[3]?.value || 0; // Joystick y-axis aim value
 
-      if (Math.abs(joystickX) > 0.05 || Math.abs(joystickY) > 0.05) {
+      if (Math.abs(joystickAimX) > 0.1 || Math.abs(joystickAimY) > 0.1) {
+        xAim = this.roundToStep(joystickAimX, 0.1); // Use joystick input
+        yAim = this.roundToStep(joystickAimY, 0.1);
+      }
+
+      if (Math.abs(joystickX) > 0.15 || Math.abs(joystickY) > 0.15) {
         xDir = this.roundToStep(joystickX, 0.05); // Use joystick input
         yDir = this.roundToStep(joystickY, 0.05);
       }
     }
 
-    
+    // TODO: mouse aim, only if left button is pressed
 
     // keyboard velocity Y
     if (upDown && downDown) {
@@ -388,20 +423,64 @@ export default class TestTilemapScene extends Phaser.Scene {
       xDir = -1;
     }
 
-    const playerDirection = this.getPlayerDirection(xDir, yDir, this.lastDir);
+    let stateChange = false;
+
+    if (xAim !== 0 || yAim !== 0) {
+      if (!this.aiming) {
+        stateChange = true
+        this.aiming = true
+      } 
+
+      this.aims[0] = xAim
+      this.aims[1] = yAim
+    } else {
+      if (this.aiming) {
+        stateChange = true
+        this.aiming = false
+      } 
+      this.aims[0] = xDir
+      this.aims[1] = yDir
+    }
+
+
+    // TODO: override xDir and yDir if aim 
+    const aim_slowdown_mult = 0.6;
+    let frameRate = 4;
+    let playerDirection;
+
+    if (this.aiming) {
+      playerDirection = this.getPlayerDirection(xAim, yAim, this.lastDir);
+      frameRate = Math.max(Math.ceil(frameRate * aim_slowdown_mult), 1);
+    } else {
+      playerDirection = this.getPlayerDirection(xDir, yDir, this.lastDir); 
+    }
+    
+    // stop the current animation to simulate duration slowdown
+    if (stateChange) {
+      this.player.sprite.stop()
+    }
 
     // Set velocity and play animations
     if (xDir === 0 && yDir === 0) {
       this.player.body.setVelocity(0);
-      this.player.play(`player/idle/player-${playerDirection}-idle`, true);
+      this.player.play({key: `player/idle/player-${playerDirection}-idle`, frameRate: frameRate}, !stateChange);
     } else {
       this.player.body.setVelocityX(xDir * this.player_speed);
       this.player.body.setVelocityY(yDir * this.player_speed);
-      this.player.play(`player/walk/player-${playerDirection}-walk`, true);
+      this.player.play({key: `player/walk/player-${playerDirection}-walk`, frameRate: frameRate}, !stateChange);
+
+      // only store the last angle
+      this.lastPos[0] = xDir
+      this.lastPos[1] = yDir
     }
 
     // Clamp speed to player speed
-    this.player.body.velocity.normalize().scale(this.player_speed);
+    if (this.aiming) {
+      // slow down while aiming
+      this.player.body.velocity.normalize().scale(this.player_speed * aim_slowdown_mult);
+    } else {
+      this.player.body.velocity.normalize().scale(this.player_speed);
+    }
 
     this.lastDir = playerDirection;
   }

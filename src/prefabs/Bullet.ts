@@ -31,58 +31,59 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
 
 	/* START-USER-CODE */
 
-  fireDirection(direction: string, speed?: number) {
-    if (speed == undefined) {
-        speed = this.speed;
+  // TODO: make this global / const somewhere ?
+  private directions = [
+    { name: "right", start: 337.5, end: 22.5, diagonal: false },
+    { name: "SE", start: 22.5, end: 67.5, diagonal: true },
+    { name: "down", start: 67.5, end: 112.5, diagonal: false },
+    { name: "SW", start: 112.5, end: 157.5, diagonal: true },
+    { name: "left", start: 157.5, end: 202.5, diagonal: false },
+    { name: "NW", start: 202.5, end: 247.5, diagonal: true },
+    { name: "up", start: 247.5, end: 292.5, diagonal: false },
+    { name: "NE", start: 292.5, end: 337.5, diagonal: true }
+  ];
+
+  fireDirection(aimX: number, aimY: number, speed?: number) {
+    if (speed === undefined) {
+      speed = this.speed;
     }
-    let velocity = { x: 0, y: 0 };
+
+    // If aimX and aimY are both zero, do nothing
+    if (aimX === 0 && aimY === 0) return;
+
+    // Normalize the aim direction vector
+    const magnitude = Math.sqrt(aimX * aimX + aimY * aimY);
+    const normalizedX = aimX / magnitude;
+    const normalizedY = aimY / magnitude;
+
+    // Calculate the angle in degrees (0° is right, counter-clockwise positive)
+    let angle = Math.atan2(normalizedY, normalizedX) * (180 / Math.PI); // Radians to degrees
+    const normalizedAngle = angle >= 0 ? angle : 360 + angle; // Normalize angle to [0, 360)
+
+    // Determine if the direction is diagonal or straight
+
     let isDiagonal = false;
-
-    switch (direction) {
-      case "up":
-        velocity.y = -speed;
+    for (const dir of this.directions) {
+      if (normalizedAngle >= dir.start && normalizedAngle < dir.end) {
+        isDiagonal = dir.diagonal;
         break;
-      case "down":
-        this.setAngle(180);
-        velocity.y = speed;
-        break;
-      case "left":
-        this.setAngle(270);
-        velocity.x = -speed;
-        break;
-      case "right":
-        this.setAngle(90);
-        velocity.x = speed;
-        break;
-      default:
-        isDiagonal = true;
-    }
-
-    if (isDiagonal) {
-        this.setFrame("bullet shot diagonal");
-      switch (direction) {
-        case "NE":
-          velocity.x = speed;
-          velocity.y = -speed;
-          break;
-        case "NW":
-          this.setAngle(270);
-          velocity.x = -speed;
-          velocity.y = -speed;
-          break;
-        case "SE":
-            this.setAngle(90);
-          velocity.x = speed;
-          velocity.y = speed;
-          break;
-        case "SW":
-            this.setAngle(180);
-          velocity.x = -speed;
-          velocity.y = speed;
-          break;
       }
     }
-    this.body.setVelocity(velocity.x, velocity.y);
+
+    let bulletImageAngle = angle + 90
+    // Set the appropriate frame based on diagonal/straight
+    if (isDiagonal) {
+      this.setFrame("bullet shot diagonal");
+      bulletImageAngle -= 45;
+    }
+    
+    // Set the bullet's rotation angle for visuals
+    this.setAngle(bulletImageAngle); // Phaser's angle system is rotated by 90°
+
+    // Set bullet velocity
+    const velocityX = normalizedX * speed;
+    const velocityY = normalizedY * speed;
+    this.body.setVelocity(velocityX, velocityY);
   }
 
   getVelocityFromDirection(direction: string) {
