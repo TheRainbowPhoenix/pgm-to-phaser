@@ -9,22 +9,34 @@ import TestTilemapScene from './scenes/TestTilemapScene';
 import TitleScreen from './scenes/TitleScreen';
 import WebfontLoader from './plugins/WebfontLoader';
 
+// @ts-ignore
+const documentWidth = window.innerWidth; // @ts-ignore
+const documentHeight = window.innerHeight;
+const zoomLevel = Math.floor(Math.min(documentWidth / 640, documentHeight / 360));
+console.log(zoomLevel)
+// TODO: experimental "wide screen" mode
+const gameWidth = documentWidth / zoomLevel;
+const gameHeight = documentHeight / zoomLevel;
+// const gameWidth = 640; // documentWidth / zoomLevel;
+// const gameHeight = 360; // documentHeight / zoomLevel;
+
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
 const config: Types.Core.GameConfig = {
     antialias: false,
     antialiasGL: false,
     type: Phaser.AUTO,
-    width: 640,
-    height: 360,
+    width: gameWidth,
+    height: gameHeight,
     parent: 'game-container',
     backgroundColor: '#0A0A0A',
     roundPixels: false,
 		scale: {
-			mode: Phaser.Scale.FIT,
-			autoCenter: Phaser.Scale.CENTER_BOTH
+			mode: Phaser.Scale.NONE,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      zoom: zoomLevel
 		},
-    pixelArt: true,
+    pixelArt: false,
     physics: {
         default: 'arcade',
         arcade: { // @ts-ignore

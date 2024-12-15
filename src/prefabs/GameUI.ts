@@ -17,7 +17,9 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 		this.add(logInfo);
 
 		// bottom_text_board
-		const bottom_text_board = scene.add.image(512, 412, "text_board01", "bottom_text_board");
+		const bottom_text_board = scene.add.image(672, 448, "text_board01", "bottom_text_board");
+		bottom_text_board.preFX!.padding = 1;
+		bottom_text_board.setOrigin(1, 1);
 		logInfo.add(bottom_text_board);
 
 		// consoleLog
@@ -52,6 +54,16 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 		this.elevator = elevator;
 
 		/* START-USER-CTR-CODE */
+
+		const gameConf = this.systems.game.config
+		this.width = typeof gameConf.width === 'string' ? parseInt(gameConf.width, 10) : gameConf.width;
+		this.height = typeof gameConf.height === 'string' ? parseInt(gameConf.height, 10) : gameConf.height;
+
+		// x, y = 512, 412
+		// 640, 360
+		this.bottom_text_board.setPosition(this.width +32, this.height + 84) // set its position x and y to the gameconfig width and gameconfig height
+		this.consoleLog.setPosition(this.width - 266, this.height - 32)
+		this.levelMap.setPosition(this.width + 480, 176)
 		// Write your code here.
 		/* END-USER-CTR-CODE */
 	}
@@ -69,6 +81,9 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 	public sectorMiniMap: number = 0;
 
 	/* START-USER-CODE */
+
+	private width: number;
+	private height: number;
 
 	setScrollFactor(x: number, y:number) {
 		this.logInfo.getChildren().forEach((elem: any) => {
@@ -94,7 +109,7 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 
 			this.scene.tweens.add({
 			  targets: this.levelMap,
-			  x: 660, // Final position
+			  x: this.width + 20, // Final position
 			  duration: 500,
 			  ease: "Elastic",
 			  easeParams: [0.1, 1.5], // Adjust for more elasticity
@@ -107,7 +122,7 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 		if (this.levelMapVisible) {
 			this.scene.tweens.add({
 			targets: this.levelMap,
-			x: 800 + 320, // Off-screen to the right
+			x: this.width + 480, // Off-screen to the right
 			duration: 500,
 			ease: "Power2",
 			});
@@ -139,11 +154,11 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 		});
 	}
 
+
 	showDialog(message: string, autoDismiss = true, timeout = 4500) {
 		this.scene.tweens.add({
 			targets: this.bottom_text_board,
-			x: 512,
-			y: 346,
+			y: this.height + 18,
 			duration: 50,
 			ease: "Power2",
 		  });
@@ -163,8 +178,7 @@ export default class GameUI extends Phaser.GameObjects.Layer {
 
 		this.scene.tweens.add({
 			targets: this.bottom_text_board,
-			x: 512, // Final position
-			y: 412,
+			y: this.height + 84,
 			duration: 500,
 			ease: "Elastic.In",
 			easeParams: [0.6, 0.8], // Adjust for more elasticity

@@ -124,7 +124,10 @@ export default class TestTilemapScene extends Phaser.Scene {
 
 	/* START-USER-CODE */
 
-  protected lastDir: number = 0;
+  private player_speed: number = 150;
+  private gamepad?: Phaser.Input.Gamepad.Gamepad;
+
+  protected lastDir: string = "right";
   protected animatedTiles: any[] = [];
   protected boxTriggerGroup: Phaser.Physics.Arcade.StaticGroup;
   protected inUINavigation: boolean = false;
@@ -151,6 +154,8 @@ export default class TestTilemapScene extends Phaser.Scene {
     this.initCamera();
 
     this.initBullets();
+
+    this.initControls();
   }
 
   initCamera() {
@@ -177,11 +182,30 @@ export default class TestTilemapScene extends Phaser.Scene {
 
   }
 
+  initControls() {
+    console.log(this.input.gamepad)
+    if (!this.input.gamepad || this.input.gamepad.total === 0) {
+      return;
+    }
+
+    const pads = this.input.gamepad.gamepads;
+    for (let i = 0; i < pads.length; i++) {
+      const pad = pads[i];
+
+      if (!pad) {
+        continue;
+      }
+      // TODO: add select logic for gamepads in setting
+      this.gamepad = pad;
+      break
+    }
+  }
+
   fireBullet() {
     const currentTime = this.time.now;
     if (currentTime - this.lastFiredBullet > 300) {
       this.player.numberCount
-        const direction = this.getPlayerDirection(this.lastDir);
+        const direction = this.getPlayerDirection(this.lastDir); // TODO: fix this ::
         // TODO: directions fix for fire offset
         const bullet = new Bullet(this, this.player.x + this.player.collider.x, this.player.y+ this.player.collider.y);
 
@@ -200,8 +224,11 @@ export default class TestTilemapScene extends Phaser.Scene {
 
   }
 
-  update(time: number, delta: number) {
+  override update(time: number, delta: number) {
     super.update(time, delta);
+
+    // should refresh the IO and stuff
+    this._fetchGamepad()
 
     if (!this.inUINavigation) {
       this.movePlayer();
@@ -212,9 +239,6 @@ export default class TestTilemapScene extends Phaser.Scene {
 
     this.handleElevator(delta);
 
-    if(this.fireKey.isDown) {
-      this.fireBullet();
-    }
 
     // fix camera position
     // const cam = this.cameras.main;
@@ -243,40 +267,62 @@ export default class TestTilemapScene extends Phaser.Scene {
 
   }
 
-  getPlayerDirection(currentDir: number) {
-    let playerDirection = "right";
+  getPlayerDirection(xDir: number, yDir: number, defaultDir: string) {
+    let playerDirection = "right"; // Default direction
 
-    switch (currentDir) {
-      case 11:
-        playerDirection = "SE";
-        break;
-      case 10:
-        playerDirection = "right";
-        break;
-      case 9:
-        playerDirection = "NE";
-        break;
+    // Normalize diagonal movement
+    if (xDir !== 0 || yDir !== 0) {
+      const magnitude = Math.sqrt(xDir * xDir + yDir * yDir);
+      xDir /= magnitude;
+      yDir /= magnitude;
 
-      case 1:
-        playerDirection = "down";
-        break;
-      case -1:
-        playerDirection = "up";
-        break;
+      // Calculate angle in degrees (0° is right, counter-clockwise positive)
+      const angle = Math.atan2(yDir, xDir) * (180 / Math.PI); // Convert radians to degrees
+      const normalizedAngle = angle >= 0 ? angle : 360 + angle; // Normalize angle to [0, 360)
 
-      case -9:
-        playerDirection = "SW";
-        break;
-      case -10:
-        playerDirection = "left";
-        break;
-      case -11:
-        playerDirection = "NW";
-        break;
-      default:
-        playerDirection = "right";
+      // Map angle to one of the 8 directions
+      const directions = [
+        { name: "right", start: 337.5, end: 22.5 },
+        { name: "SE", start: 22.5, end: 67.5 },
+        { name: "down", start: 67.5, end: 112.5 },
+        { name: "SW", start: 112.5, end: 157.5 },
+        { name: "left", start: 157.5, end: 202.5 },
+        { name: "NW", start: 202.5, end: 247.5 },
+        { name: "up", start: 247.5, end: 292.5 },
+        { name: "NE", start: 292.5, end: 337.5 }
+      ];
+
+      // Determine player direction (quantize to 8 directions)
+      //       -1
+      // -11  . . .  +9
+      // -10  . 0 .  +10
+      // -9   . . .  +11
+      //        1
+
+      for (const dir of directions) {
+        if (normalizedAngle >= dir.start && normalizedAngle < dir.end) {
+          playerDirection = dir.name;
+          break;
+        }
+      }
+    } else {
+      playerDirection = this.lastDir;
     }
-    return playerDirection;
+
+    return playerDirection
+  }
+
+  roundToStep (value: number, step: number) {
+    return Math.sign(value) * Math.floor(Math.abs(value) / step) * step;
+  } 
+
+  _fetchGamepad() {
+    if (this.input.gamepad && this.input.gamepad.total > 0) {
+      if (!this.gamepad) {
+        this.gamepad = this.input.gamepad.getAll().find(g => g !== undefined && g !== null);
+      }
+    }
+    return this.gamepad
   }
 
   movePlayer() {
@@ -287,11 +333,13 @@ export default class TestTilemapScene extends Phaser.Scene {
     const body = this.player.getBody();
     body.setVelocity(0);
 
-    const jumpDown = this.upKey.isDown || this.spaceKey.isDown; // || this.controllerJump.isDown;
+    // Get keyboard inputs
     const upDown = this.upKey.isDown; // || this.controllerLeft.isDown;
     const downDown = this.downKey.isDown; // || this.controllerLeft.isDown;
     const leftDown = this.leftKey.isDown; // || this.controllerLeft.isDown;
     const rightDown = this.rightKey.isDown; // || this.controllerRight.isDown;
+
+    const jumpDown = this.upKey.isDown || this.spaceKey.isDown; // || this.controllerJump.isDown;
 
     // if (jumpDown && body.onFloor()) {
     // 	this.player.body.velocity.y = -170;
@@ -309,6 +357,20 @@ export default class TestTilemapScene extends Phaser.Scene {
     let yDir = 0;
     let xDir = 0;
 
+    if (this.gamepad) {
+      const joystickX = this.gamepad.axes[0].value || 0; // Joystick x-axis value (-1 to 1)
+      const joystickY = this.gamepad.axes[1].value || 0; // Joystick y-axis value (-1 to 1)
+
+
+      if (Math.abs(joystickX) > 0.05 || Math.abs(joystickY) > 0.05) {
+        xDir = this.roundToStep(joystickX, 0.05); // Use joystick input
+        yDir = this.roundToStep(joystickY, 0.05);
+      }
+    }
+
+    
+
+    // keyboard velocity Y
     if (upDown && downDown) {
       // ignore
     } else if (upDown) {
@@ -317,6 +379,7 @@ export default class TestTilemapScene extends Phaser.Scene {
       yDir = 1;
     }
 
+    // keyboard velocity X
     if (leftDown && rightDown) {
       // ignore
     } else if (rightDown) {
@@ -325,34 +388,25 @@ export default class TestTilemapScene extends Phaser.Scene {
       xDir = -1;
     }
 
-    let playerDirection = "right";
+    const playerDirection = this.getPlayerDirection(xDir, yDir, this.lastDir);
 
-    //       -1
-    // -11  . . .  +9
-    // -10  . 0 .  +10
-    // -9   . . .  +11
-    //        1
-    let currentDir = xDir * 10 + yDir;
-
-    if (currentDir == 0) {
-      currentDir = this.lastDir;
-    }
-
-    playerDirection = this.getPlayerDirection(currentDir);
-
-    if (xDir == 0 && yDir == 0) {
-      this.player.body.velocity.x = 0;
-      this.player.body.velocity.y = 0;
+    // Set velocity and play animations
+    if (xDir === 0 && yDir === 0) {
+      this.player.body.setVelocity(0);
       this.player.play(`player/idle/player-${playerDirection}-idle`, true);
     } else {
-      this.player.body.setVelocityX(xDir * 100);
-      this.player.body.setVelocityY(yDir * 100);
+      this.player.body.setVelocityX(xDir * this.player_speed);
+      this.player.body.setVelocityY(yDir * this.player_speed);
       this.player.play(`player/walk/player-${playerDirection}-walk`, true);
     }
-    this.player.body.velocity.normalize().scale(100);
 
-    this.lastDir = currentDir;
+    // Clamp speed to player speed
+    this.player.body.velocity.normalize().scale(this.player_speed);
+
+    this.lastDir = playerDirection;
   }
+
+
 
   initUI() {
     this.uiLayer.getChildren().forEach((elem: any) => {
@@ -520,6 +574,17 @@ export default class TestTilemapScene extends Phaser.Scene {
   }
 
   handleInteractions() {
+    let isFire = this.fireKey.isDown
+    let isInteract = this.interactKey.isDown
+    if (this.gamepad) {
+      if (this.gamepad.buttons[5].pressed) { // R1, todo - mapping custom ?
+        isFire = true
+      }
+      if (this.gamepad.buttons[0].pressed) {
+        isInteract = true
+      }
+    } 
+
     // Check if player is no longer overlapping any trigger
     if (
       this.activeTrigger &&
@@ -533,8 +598,14 @@ export default class TestTilemapScene extends Phaser.Scene {
       this.endBoxTrigger();
     }
 
-    if (this.interactKey.isDown && this.gameUI.isDialogVisible) {
+    if (isInteract && this.gameUI.isDialogVisible) {
       this.gameUI.dismissDialog();
+    }
+
+    
+    // Handle fire and actions keys
+    if(isFire) {
+      this.fireBullet();
     }
   }
 

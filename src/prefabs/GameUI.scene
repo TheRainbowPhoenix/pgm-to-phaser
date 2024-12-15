@@ -29,12 +29,15 @@
                             "id": "561a9550-dd6b-4145-872d-038fc9c6586f",
                             "label": "bottom_text_board",
                             "scope": "CLASS",
+                            "padding": 1,
                             "texture": {
                                 "key": "text_board01",
                                 "frame": "bottom_text_board"
                             },
-                            "x": 512,
-                            "y": 412
+                            "x": 672,
+                            "y": 448,
+                            "originX": 1,
+                            "originY": 1
                         },
                         {
                             "type": "BitmapText",

@@ -28,7 +28,7 @@
                     },
                     "x": 6,
                     "ArcadeComponent.active": true,
-                    "maxSpeed": 400,
+                    "maxSpeed": 800,
                     "body.maxVelocity.x": 1000,
                     "body.maxVelocity.y": 1000,
                     "body.friction.x": 0,

@@ -18,7 +18,7 @@ export default class Velonia extends Phaser.GameObjects.Container {
 		scene.physics.add.existing(sprite, false);
 		sprite.body.maxVelocity.x = 1000;
 		sprite.body.maxVelocity.y = 1000;
-		sprite.body.maxSpeed = 400;
+		sprite.body.maxSpeed = 800;
 		sprite.body.friction.x = 0;
 		sprite.body.allowGravity = false;
 		sprite.body.allowDrag = false;
